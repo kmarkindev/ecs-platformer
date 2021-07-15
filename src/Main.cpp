@@ -1,9 +1,10 @@
-#include <iostream>
-
-#include <stb/i
+#include "Application.h"
 
 int main()
 {
-    std::cout << "Hi" << std::endl;
+    auto app = Application();
+
+    while(app.Update());
+
     return 0;
 }

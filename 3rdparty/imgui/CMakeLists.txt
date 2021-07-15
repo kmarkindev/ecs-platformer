@@ -10,6 +10,7 @@ add_library(imgui STATIC
     include/imgui/backends/imgui_impl_glfw.cpp
 )
 
-target_include_directories(imgui PUBLIC include)
+target_link_libraries(imgui glad glfw)
 
-add_library(ImGui::ImGui ALIAS imgui)
+target_include_directories(imgui PUBLIC include)
+target_include_directories(imgui PRIVATE include/imgui)
