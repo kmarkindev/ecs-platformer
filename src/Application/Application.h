@@ -4,6 +4,7 @@
 #include "Application/AppParams.h"
 #include "Assets/AssetsManager.h"
 #include "Assets/TextureLoader.h"
+#include "Render/Renderer.h"
 
 class Application
 {
@@ -15,6 +16,7 @@ private:
     AppParams _appParams;
     AssetsManager _assetsManager;
     TextureLoader _textureLoader;
+    Renderer _renderer;
 };
 
 
