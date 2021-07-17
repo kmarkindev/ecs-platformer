@@ -10,6 +10,10 @@ target_include_directories(executable PRIVATE
     "/"
 )
 
+add_custom_command(TARGET executable POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${CMAKE_SOURCE_DIR}/resources/ $<TARGET_FILE_DIR:executable>/resources/)
+
 add_subdirectory(Application)
 add_subdirectory(Window)
 add_subdirectory(Assets)
