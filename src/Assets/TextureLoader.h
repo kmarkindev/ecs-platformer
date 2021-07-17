@@ -1,14 +1,16 @@
 #pragma once
 
+#include <glad/glad.h>
 #include "Texture.h"
-#include <fstream>
+#include <vector>
+#include <stb/stb_image.h>
+#include <stdexcept>
 
 class TextureLoader
 {
 public:
     TextureLoader();
-    Texture loadTexture(const std::ifstream& ifstream);
-    Texture loadTexture(const std::ifstream& ifstream, std::streampos start, std::streampos end);
+    Texture loadTexture(const std::vector<unsigned char>& data);
 };
 
 
