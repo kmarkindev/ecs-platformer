@@ -13,6 +13,7 @@ public:
     void SwapBuffers();
     void PollEvents();
     bool HasCloseSignal();
+    void RaiseCloseSignal();
 
 private:
     bool _glfwInited = false;

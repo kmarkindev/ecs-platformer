@@ -33,3 +33,8 @@ bool Window::HasCloseSignal()
 {
     return glfwWindowShouldClose(_window);
 }
+
+void Window::RaiseCloseSignal()
+{
+    glfwSetWindowShouldClose(_window, GLFW_TRUE);
+}
