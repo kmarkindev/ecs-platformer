@@ -37,4 +37,6 @@ int InputManager::KeyCodeToGlfwKeyCode(KeyCode code)
         case KeyCode::KEY_SPACE:
             return GLFW_KEY_SPACE;
     }
+
+    throw std::invalid_argument("Cannot convert given key code to glfw key code");
 }

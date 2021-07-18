@@ -2,6 +2,7 @@
 
 #include "Window/Window.h"
 #include "KeyCode.h"
+#include <stdexcept>
 
 class InputManager
 {
