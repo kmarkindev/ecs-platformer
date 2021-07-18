@@ -6,7 +6,7 @@
 class InputManager
 {
 public:
-    InputManager(std::shared_ptr<Window> window);
+    explicit InputManager(std::shared_ptr<Window> window);
 
     bool KeyPressed(KeyCode code);
     bool KeyReleased(KeyCode code);
