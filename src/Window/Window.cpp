@@ -38,3 +38,20 @@ void Window::RaiseCloseSignal()
 {
     glfwSetWindowShouldClose(_window, GLFW_TRUE);
 }
+
+glm::ivec2 Window::GetWindowSize()
+{
+    glm::ivec2 size;
+    glfwGetWindowSize(_window, &size[0], &size[1]);
+    return size;
+}
+
+void Window::SetWindowSize(glm::ivec2 newSize)
+{
+    glfwSetWindowSize(_window, newSize[0], newSize[1]);
+}
+
+const GLFWwindow* Window::GetGlfwWindowPointer()
+{
+    return _window;
+}
