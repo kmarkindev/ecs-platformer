@@ -14,6 +14,12 @@ public:
         return _registry.emplace<T>(_entity, std::forward<Args>(args)...);
     }
 
+    template<typename T, typename... Args>
+    T ReplaceComponent(Args&& ... args)
+    {
+        return _registry.replace<T>(_entity, std::forward<Args>(args)...);
+    }
+
     template<typename T>
     void RemoveComponent()
     {
