@@ -9,6 +9,7 @@
 #include "Assets/TextureLoader.h"
 #include "Render/Renderer.h"
 #include "Input/InputManager.h"
+#include "Scene/Scene.h"
 
 class Application
 {
