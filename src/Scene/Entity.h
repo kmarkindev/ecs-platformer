@@ -20,6 +20,12 @@ public:
         _registry.remove<T>(_entity);
     }
 
+    template<typename T>
+    T GetComponent()
+    {
+        return _registry.get<T>(_entity);
+    }
+
     template<typename... Comps>
     bool HasAnyOfComponents()
     {

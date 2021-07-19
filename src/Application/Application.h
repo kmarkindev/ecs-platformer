@@ -17,7 +17,7 @@ public:
     explicit Application(AppParams params);
     bool Update();
 private:
-    DependencyContainer* _container;
+    DependencyContainer* _container{};
 
     void InitializeContainer(AppParams params);
 };

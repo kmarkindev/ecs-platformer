@@ -2,7 +2,7 @@
 
 Application::Application(AppParams params)
 {
-    InitializeContainer(params);
+    InitializeContainer(std::move(params));
 }
 
 bool Application::Update()
