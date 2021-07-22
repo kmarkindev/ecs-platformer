@@ -5,4 +5,6 @@ target_sources(executable PUBLIC
     Texture.h
     AssetsManager.cpp
     AssetsManager.h
+    Sprite.h
+    Sprite.cpp
 )
