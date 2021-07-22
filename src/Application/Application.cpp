@@ -12,6 +12,8 @@ bool Application::Update()
     if(_container->_window->HasCloseSignal())
         return false;
 
+    //...
+
     _container->_window->SwapBuffers();
 
     return true;

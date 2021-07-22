@@ -3,6 +3,8 @@
 #include <utility>
 #include <entt/entt.hpp>
 #include "IComponent.h"
+#include "Scene.h"
+
 
 template<typename T>
 concept Component = std::is_base_of_v<IComponent, T>;

@@ -1,5 +1,9 @@
 #pragma once
 
+#include "Scene.h"
+
+class Scene;
+
 class ISystem
 {
 public:

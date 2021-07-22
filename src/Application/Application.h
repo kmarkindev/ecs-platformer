@@ -10,6 +10,10 @@
 #include "Render/Renderer.h"
 #include "Input/InputManager.h"
 #include "Scene/Scene.h"
+#include "Components/TransformComponent.h"
+#include "Systems/TestSystem.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 class Application
 {
