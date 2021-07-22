@@ -9,12 +9,8 @@ void TestSystem::Update(Scene& scene)
 {
     for(auto& entity : scene.GetEntities<TransformComponent>())
     {
-        auto transformComponent = entity.GetComponent<TransformComponent>();
-        transformComponent.position += glm::vec3(0, -1, 0);
-        entity.ReplaceComponent<TransformComponent>(
-                transformComponent.position,
-                transformComponent.scale,
-                transformComponent.rotation,
-                transformComponent.parent);
+        entity.PatchComponent<TransformComponent>([&](auto& transform){
+            transform.position += glm::vec3(0, -1, 0);
+        });
     }
 }

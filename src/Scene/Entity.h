@@ -4,6 +4,7 @@
 #include <entt/entt.hpp>
 #include "IComponent.h"
 #include "Scene.h"
+#include <functional>
 
 
 template<typename T>
@@ -24,6 +25,12 @@ public:
     T ReplaceComponent(Args&& ... args)
     {
         return _registry.replace<T>(_entity, std::forward<Args>(args)...);
+    }
+
+    template<Component T>
+    void PatchComponent(std::function<void(T&)> callback)
+    {
+        _registry.patch<T>(_entity, callback);
     }
 
     template<Component T>
