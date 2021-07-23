@@ -40,24 +40,24 @@ public:
     }
 
     template<Component T>
-    T GetComponent()
+    [[nodiscard]] T GetComponent() const
     {
         return _registry.get<T>(_entity);
     }
 
     template<Component... Comps>
-    bool HasAnyOfComponents()
+    [[nodiscard]] bool HasAnyOfComponents() const
     {
         return _registry.any_of<Comps...>(_entity);
     }
 
     template<Component... Copms>
-    bool HasAllOfComponents()
+    [[nodiscard]] bool HasAllOfComponents() const
     {
         return _registry.all_of<Copms...>(_entity);
     }
 
-    bool IsValid()
+    [[nodiscard]] bool IsValid() const
     {
         return _registry.valid(_entity);
     }

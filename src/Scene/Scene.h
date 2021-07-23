@@ -28,7 +28,7 @@ public:
     void InitSystems();
 
     template<typename... Filter, typename... Exclude>
-    std::vector<Entity> GetEntities(ExcludeComponents<Exclude...> exclude = {})
+    [[nodiscard]] std::vector<Entity> GetEntities(ExcludeComponents<Exclude...> exclude = {}) const
     {
         auto entities = _registry.view<Filter...>(entt::exclude<Exclude...>);
 
@@ -51,7 +51,7 @@ public:
     }
 
     template<System T>
-    bool HasSystem()
+    [[nodiscard]] bool HasSystem() const
     {
         const auto typeId = typeid(T).hash_code();
         return _systems.contains(typeId);
