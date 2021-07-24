@@ -12,7 +12,7 @@ public:
     [[nodiscard]] GLuint GetTextureId() const;
 
     Texture& operator = (Texture&& texture) noexcept;
-    Texture& operator = (const Texture& texture) = delete;
+    Texture& operator = (const Texture&) = delete;
 
 private:
     GLuint _textureId;
