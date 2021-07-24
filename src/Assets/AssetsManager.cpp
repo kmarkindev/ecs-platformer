@@ -5,6 +5,9 @@ std::vector<unsigned char> AssetsManager::GetAssetData(const std::filesystem::pa
     auto finalPath = _appRootFolderPath / "resources" / assetPath;
     auto assetSize = std::filesystem::file_size(finalPath);
 
+    if(!std::filesystem::exists(finalPath))
+        throw std::invalid_argument("Cannot find such asset");
+
     std::vector<unsigned char> data;
     data.reserve(assetSize);
 
@@ -18,11 +21,6 @@ std::vector<unsigned char> AssetsManager::GetAssetData(const std::filesystem::pa
 
 AssetsManager::AssetsManager(std::filesystem::path appFolderPath)
     : _appRootFolderPath(std::move(appFolderPath))
-{
-
-}
-
-AssetsManager::~AssetsManager()
 {
 
 }
