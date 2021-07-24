@@ -1,15 +1,15 @@
 #pragma once
 
-#include <entt/entt.hpp>
 #include "Entity.h"
+#include <entt/entt.hpp>
 #include "ISystem.h"
 #include <map>
 #include <stdexcept>
 #include <memory>
 #include <typeinfo>
 
-class Entity;
 class ISystem;
+class Entity;
 
 template<typename T>
 concept System = std::is_base_of_v<ISystem, T>;
@@ -30,12 +30,12 @@ public:
     template<typename... Filter, typename... Exclude>
     [[nodiscard]] std::vector<Entity> GetEntities(ExcludeComponents<Exclude...> exclude = {}) const
     {
-        auto entities = _registry.view<Filter...>(entt::exclude<Exclude...>);
+        auto entities = _registry.view<const Filter...>(entt::exclude<const Exclude...>);
 
         std::vector<Entity> result;
-        for(const auto& entity : entities)
+        for(entt::entity entity : entities)
         {
-            result.push_back(Entity(entity, _registry));
+            result.push_back(Entity(entity, const_cast<entt::registry*>(&_registry)));
         }
 
         return result;
@@ -66,7 +66,6 @@ public:
     }
 
 private:
-    friend class Entity;
     entt::registry _registry;
     std::map<std::size_t, std::unique_ptr<ISystem>> _systems;
 };

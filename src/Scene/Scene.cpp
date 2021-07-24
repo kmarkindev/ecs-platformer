@@ -7,7 +7,7 @@ Scene::Scene()
 
 Entity Scene::CreateEntity()
 {
-    return Entity(_registry.create(), _registry);
+    return Entity(_registry.create(), &_registry);
 }
 
 void Scene::UpdateSystems()
