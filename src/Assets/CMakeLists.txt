@@ -1,10 +1,14 @@
 target_sources(executable PUBLIC
-    TextureLoader.cpp
-    TextureLoader.h
+    OpenGlTextureLoader.cpp
+    OpenGlTextureLoader.h
     Texture.cpp
     Texture.h
     AssetsManager.cpp
     AssetsManager.h
     Sprite.h
     Sprite.cpp
+    OpenGlShaderLoader.cpp
+    OpenGlShaderLoader.h
+    GroupedAssetsParser.cpp
+    GroupedAssetsParser.h
 )
