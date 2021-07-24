@@ -6,9 +6,10 @@
 #include "Window/Window.h"
 #include "Application/AppParams.h"
 #include "Assets/AssetsManager.h"
-#include "Assets/TextureLoader.h"
+#include "Assets/OpenGlTextureLoader.h"
 #include "Render/Renderer.h"
 #include "Input/InputManager.h"
+#include "Assets/OpenGlShaderLoader.h"
 
 class Application
 {

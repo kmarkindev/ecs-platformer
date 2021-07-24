@@ -28,5 +28,7 @@ void Application::InitializeContainer(AppParams params)
     _container->_inputManager = std::make_shared<InputManager>(_container->_window);
     _container->_renderer = std::make_shared<Renderer>(_container->_window);
     _container->_assetsManager = std::make_shared<AssetsManager>(_container->_appParams->GetAppRootFolder());
-    _container->_textureLoader = std::make_shared<TextureLoader>();
+    _container->_groupedAssetsParser = std::make_shared<GroupedAssetsParser>();
+    _container->_textureLoader = std::make_shared<OpenGlTextureLoader>();
+    _container->_shaderLoader = std::make_shared<OpenGlShaderLoader>(_container->_renderer, _container->_groupedAssetsParser);
 }
