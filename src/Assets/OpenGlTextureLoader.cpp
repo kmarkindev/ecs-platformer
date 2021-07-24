@@ -1,14 +1,14 @@
-#include "TextureLoader.h"
+#include "OpenGlTextureLoader.h"
 
-TextureLoader::TextureLoader()
+OpenGlTextureLoader::OpenGlTextureLoader()
 {
 
 }
 
-Texture TextureLoader::loadTexture(const std::vector<unsigned char>& data)
+Texture OpenGlTextureLoader::loadTexture(const std::vector<unsigned char>& data) const
 {
     int x, y, n;
-    auto bitmap = stbi_load_from_memory(data.data(), (int)data.size(), &x, &y, &n, 0);
+    auto bitmap = stbi_load_from_memory(data.data(), data.size(), &x, &y, &n, 0);
 
     if(!bitmap)
         throw std::invalid_argument("Cannot load image from given data");

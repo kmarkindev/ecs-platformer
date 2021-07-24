@@ -6,11 +6,11 @@
 #include <stb/stb_image.h>
 #include <stdexcept>
 
-class TextureLoader
+class OpenGlTextureLoader
 {
 public:
-    TextureLoader();
-    Texture loadTexture(const std::vector<unsigned char>& data);
+    OpenGlTextureLoader();
+    [[nodiscard]] Texture loadTexture(const std::vector<unsigned char>& data) const;
 };
 
 
