@@ -67,7 +67,9 @@ public:
 
 private:
     entt::registry _registry;
-    std::map<std::size_t, std::unique_ptr<ISystem>> _systems;
+    std::map<std::size_t, std::shared_ptr<ISystem>> _systems;
+
+    std::vector<std::pair<std::size_t, std::shared_ptr<ISystem>>> GetSortedSystems();
 };
 
 

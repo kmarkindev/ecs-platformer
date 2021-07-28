@@ -78,3 +78,8 @@ OpenGlShader::OpenGlShader(std::shared_ptr<Renderer> renderer, GLuint program)
 {
 
 }
+
+void OpenGlShader::UnuseProgram()
+{
+    glUseProgram(0);
+}

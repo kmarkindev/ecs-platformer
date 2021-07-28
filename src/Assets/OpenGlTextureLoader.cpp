@@ -5,9 +5,10 @@ OpenGlTextureLoader::OpenGlTextureLoader()
 
 }
 
-Texture OpenGlTextureLoader::loadTexture(const std::vector<unsigned char>& data) const
+Texture OpenGlTextureLoader::LoadTexture(const std::vector<unsigned char>& data) const
 {
     int x, y, n;
+    stbi_set_flip_vertically_on_load(true);
     auto bitmap = stbi_load_from_memory(data.data(), data.size(), &x, &y, &n, 0);
 
     if(!bitmap)

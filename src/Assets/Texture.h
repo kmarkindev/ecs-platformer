@@ -10,6 +10,11 @@ public:
     Texture(const Texture& texture) = delete;
     ~Texture();
     [[nodiscard]] GLuint GetTextureId() const;
+    [[nodiscard]] bool IsBinded() const;
+    [[nodiscard]] int GetBindedBlockId() const;
+    void Bind(int textureBlockId);
+    void Unbind();
+
 
     Texture& operator = (Texture&& texture) noexcept;
     Texture& operator = (const Texture&) = delete;
@@ -19,6 +24,7 @@ private:
     int _width;
     int _height;
     int _channels;
+    int _bindedBlockId;
 };
 
 

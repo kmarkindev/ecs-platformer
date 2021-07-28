@@ -10,6 +10,7 @@
 #include "Assets/GroupedAssetsParser.h"
 #include "Render/Renderer.h"
 #include "Input/InputManager.h"
+#include "Render/SpriteRenderer.h"
 
 class DependencyContainer : public Singleton<DependencyContainer>
 {
@@ -22,6 +23,7 @@ public:
     std::shared_ptr<OpenGlTextureLoader> _textureLoader;
     std::shared_ptr<OpenGlShaderLoader> _shaderLoader;
     std::shared_ptr<Renderer> _renderer;
+    std::shared_ptr<SpriteRenderer> _spriteRenderer;
 };
 
 

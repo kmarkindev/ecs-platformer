@@ -10,7 +10,7 @@ class OpenGlTextureLoader
 {
 public:
     OpenGlTextureLoader();
-    [[nodiscard]] Texture loadTexture(const std::vector<unsigned char>& data) const;
+    [[nodiscard]] Texture LoadTexture(const std::vector<unsigned char>& data) const;
 };
 
 

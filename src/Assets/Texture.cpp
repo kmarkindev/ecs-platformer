@@ -46,3 +46,27 @@ Texture& Texture::operator=(Texture&& texture) noexcept
 
     return *this;
 }
+
+void Texture::Bind(int textureBlockId)
+{
+    _bindedBlockId = textureBlockId;
+    glActiveTexture(GL_TEXTURE0 + textureBlockId);
+    glBindTexture(GL_TEXTURE_2D, _textureId);
+}
+
+void Texture::Unbind()
+{
+    glActiveTexture(GL_TEXTURE0 + _bindedBlockId);
+    glBindTexture(GL_TEXTURE_2D, _textureId);
+    _bindedBlockId = -1;
+}
+
+bool Texture::IsBinded() const
+{
+    return _bindedBlockId > -1;
+}
+
+int Texture::GetBindedBlockId() const
+{
+    return _bindedBlockId;
+}

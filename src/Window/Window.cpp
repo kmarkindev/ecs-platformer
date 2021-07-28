@@ -8,6 +8,11 @@ Window::Window(std::string title, int width, int height, bool fullScreen)
         _glfwInited = true;
     }
     const char* charTitle = title.c_str();
+
+#if DEBUG_BUILD
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+#endif
+
     _window = glfwCreateWindow(width, height, charTitle, fullScreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
 
     glfwMakeContextCurrent(_window);

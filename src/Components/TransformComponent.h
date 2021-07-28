@@ -1,20 +1,18 @@
 #pragma once
 
 #include <glm/glm.hpp>
-#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include "Scene/IComponent.h"
 #include <memory>
 
 struct TransformComponent : public IComponent
 {
-    glm::vec3 position;
-    glm::vec3 scale;
+    glm::vec2 position;
+    glm::vec2 scale;
     glm::quat rotation;
 
-    TransformComponent* parent;
-
-    TransformComponent(glm::vec3 position, glm::vec3 scale, glm::quat rotation, TransformComponent* parent = nullptr)
-        : position(position), scale(scale), rotation(rotation), parent(parent)
+    TransformComponent(glm::vec2 position, glm::vec2 scale, glm::quat rotation)
+        : position(position), scale(scale), rotation(rotation)
     {
     }
 };

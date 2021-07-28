@@ -1,4 +1,6 @@
 target_sources(executable PUBLIC
-    TestSystem.cpp
-    TestSystem.h
+    SpriteRenderSystem.cpp
+	SpriteRenderSystem.h
+	SinMoveSystem.cpp
+	SinMoveSystem.h
 )

@@ -14,6 +14,7 @@ public:
     OpenGlShader& operator = (const OpenGlShader&) = delete;
 
     void UseProgram() override;
+    void UnuseProgram() override;
     void Uniform(std::string location, bool value) override;
     void Uniform(std::string location, float value) override;
     void Uniform(std::string location, int value) override;

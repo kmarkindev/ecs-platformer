@@ -7,6 +7,7 @@ class IShader
 {
 public:
     virtual void UseProgram() = 0;
+    virtual void UnuseProgram() = 0;
     virtual void Uniform(std::string location, bool value) = 0;
     virtual void Uniform(std::string location, float value) = 0;
     virtual void Uniform(std::string location, int value) = 0;
