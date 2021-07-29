@@ -12,10 +12,6 @@
 #include <filesystem>
 #include <utility>
 
-/*
- TODO: Test it. Try to render smth. Try different scales, rotations, positions. Try to change texture between ticks.
- */
-
 class SpriteRenderer
 {
 public:

@@ -11,6 +11,7 @@
 #include "Render/Renderer.h"
 #include "Input/InputManager.h"
 #include "Render/SpriteRenderer.h"
+#include "Time/DeltaTime.h"
 
 class DependencyContainer : public Singleton<DependencyContainer>
 {
@@ -24,6 +25,7 @@ public:
     std::shared_ptr<OpenGlShaderLoader> _shaderLoader;
     std::shared_ptr<Renderer> _renderer;
     std::shared_ptr<SpriteRenderer> _spriteRenderer;
+    std::shared_ptr<DeltaTime> _deltaTime;
 };
 
 
