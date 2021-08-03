@@ -5,4 +5,8 @@ target_sources(executable PUBLIC
     Entity.cpp
     IComponent.h
     ISystem.h
+	SceneManager.cpp
+	SceneManager.h
 )
+
+add_subdirectory(SceneFactories)

@@ -7,6 +7,8 @@
 #include "Math/Transform.h"
 #include "Container/DependencyContainer.h"
 
+class DependencyContainer;
+
 class SpriteRenderSystem : public ISystem
 {
 public:

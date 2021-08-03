@@ -10,16 +10,9 @@
 #include "Render/Renderer.h"
 #include "Input/InputManager.h"
 #include "Assets/OpenGlShaderLoader.h"
-#include "Scene/Scene.h"
-#include "Math/Transform.h"
-
-#include "Components/TransformComponent.h"
-#include "Components/CameraComponent.h"
-#include "Components/SpriteComponent.h"
-#include "Systems/SpriteRenderSystem.h"
-#include "Systems/SinMoveSystem.h"
-#include <glm/glm.hpp>
-#include <glm/gtx/quaternion.hpp>
+#include "Scene/SceneManager.h"
+#include "Scene/SceneFactories/TestScene.h"
+#include "Scene/SceneFactories/TestScene2.h"
 
 class Application
 {
@@ -31,7 +24,7 @@ private:
     Scene _scene;
 
     void InitializeContainer(AppParams params);
-    void InitializeScene();
+    void RegisterSceneFactories();
 };
 
 

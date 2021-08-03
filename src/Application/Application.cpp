@@ -3,7 +3,7 @@
 Application::Application(AppParams params)
 {
     InitializeContainer(std::move(params));
-    InitializeScene();
+    RegisterSceneFactories();
     _scene.InitSystems();
     _container->_deltaTime->ResetDeltaTime();
 }
@@ -15,8 +15,10 @@ bool Application::Update()
     if(_container->_window->HasCloseSignal())
         return false;
 
+    auto scene = _container->_sceneManager->GetActiveScene();
+
     _container->_renderer->StartRender();
-    _scene.UpdateSystems();
+    scene.second->UpdateSystems();
     _container->_renderer->EndRender();
 
     _container->_window->SwapBuffers();
@@ -41,24 +43,15 @@ void Application::InitializeContainer(AppParams params)
     _container->_spriteRenderer = std::make_shared<SpriteRenderer>(_container->_renderer, _container->_shaderLoader,
                                                                    _container->_assetsManager);
     _container->_deltaTime = std::make_shared<DeltaTime>();
+    _container->_sceneManager = std::make_shared<SceneManager>();
 }
 
-void Application::InitializeScene()
+void Application::RegisterSceneFactories()
 {
-    static Texture txt = _container->_textureLoader->LoadTexture(
-            _container->_assetsManager->GetAssetData(std::filesystem::path("image.png")));
-    static Sprite sprite = Sprite(&txt);
+    auto manager = _container->_sceneManager;
 
-    auto camera = _scene.CreateEntity();
-    camera.AddComponent<TransformComponent>(glm::vec2({0, 0}),
-                                            glm::vec2({1, 1}), glm::quat({1, 0, 0, 0}));
-    camera.AddComponent<CameraComponent>(5.0f);
+    manager->RegisterSceneFactory(std::make_shared<TestScene>(), 1);
+    manager->RegisterSceneFactory(std::make_shared<TestScene2>(), 2);
 
-    auto image = _scene.CreateEntity();
-    image.AddComponent<TransformComponent>(glm::vec2({0, 0}),
-                                           glm::vec2({1, 1}), glm::quat({1, 0, 0, 0}));
-    image.AddComponent<SpriteComponent>(&sprite);
-
-    _scene.AddSystem<SpriteRenderSystem>();
-    _scene.AddSystem<SinMoveSystem>();
+    manager->LoadScene(1);
 }
