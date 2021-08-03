@@ -7,7 +7,7 @@ target_sources(executable PUBLIC
 )
 
 target_include_directories(executable PRIVATE
-    "/"
+    "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 
 add_custom_command(TARGET executable POST_BUILD
@@ -15,7 +15,7 @@ add_custom_command(TARGET executable POST_BUILD
         ${CMAKE_SOURCE_DIR}/resources/ $<TARGET_FILE_DIR:executable>/resources/)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-	message("Debug build detected. Define DEBUG_MODE definition")
+	message("Debug build detected. DEBUG_MODE definition defined")
 	target_compile_definitions(executable PRIVATE DEBUG_BUILD)
 endif()
 
