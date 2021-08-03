@@ -1,6 +1,6 @@
 #include "Window.h"
 
-Window::Window(std::string title, int width, int height, bool fullScreen)
+Window::Window(const std::string& title, int width, int height, bool fullScreen)
 {
     if(!_glfwInited)
     {

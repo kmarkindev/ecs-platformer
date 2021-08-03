@@ -9,7 +9,7 @@
 class Window
 {
 public:
-    explicit Window(std::string title, int width, int height, bool fullScreen);
+    explicit Window(const std::string& title, int width, int height, bool fullScreen);
     ~Window();
     void SwapBuffers();
     void PollEvents();
