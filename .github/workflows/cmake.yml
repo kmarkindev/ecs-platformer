@@ -24,11 +24,6 @@ jobs:
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - uses: ncipollo/release-action@v1
-      with:
-        artifacts: "${{github.workspace}}/build/bin/"
-        token: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Create Artifacts
       uses: actions/upload-artifact@v2
       with:
