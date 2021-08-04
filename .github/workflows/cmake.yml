@@ -24,16 +24,15 @@ jobs:
     - name: Build
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - name: Create Artifacts
-      uses: actions/upload-artifact@v2
+    - name: Create zip archive
+      uses: montudor/action-zip@v1
       with:
-        name: game
-        path: ${{github.workspace}}/build/bin/Release
+        args: zip -qq -r ${{github.workspace}}/game.zip ${{github.workspace}}/build/bin/Release/
         
-    - name: Publish Artifacts
+    - name: Update release
       uses: ncipollo/release-action@v1
       with:
-        tag: 'binaries'
+        tag: 'game.zip'
         artifacts: ${{github.workspace}}/build/bin/Release/*
         body: "Latest game executable"
         token: ${{ secrets.GITHUB_TOKEN }}
