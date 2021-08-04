@@ -27,9 +27,15 @@ jobs:
     - name: Create zip archive
       uses: vimtor/action-zip@v1
       with:
-        
-        files: ${{github.workspace}}/build/bin/Release/
+        files: ${{github.workspace}}/build/bin/
         dest: game.zip
+        
+    - uses: dev-drprasad/delete-tag-and-release@v0.2.0
+      with:
+        delete_release: true
+        tag_name: game.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Update release
       uses: ncipollo/release-action@v1
