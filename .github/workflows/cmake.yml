@@ -27,7 +27,7 @@ jobs:
     - name: Create zip archive
       uses: vimtor/action-zip@v1
       with:
-        files: ${{github.workspace}}\build
+        files: build\bin\Release
         dest: game.zip
         
     - name: Delete old release
