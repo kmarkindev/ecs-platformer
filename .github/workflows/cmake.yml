@@ -33,6 +33,7 @@ jobs:
     - name: Publish Artifacts
       uses: ncipollo/release-action@v1
       with:
+        tag: 'binaries'
         artifacts: ${{github.workspace}}/build/bin/Release/*
         body: "Latest game executable"
         token: ${{ secrets.GITHUB_TOKEN }}
