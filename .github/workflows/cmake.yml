@@ -31,8 +31,10 @@ jobs:
         path: ${{github.workspace}}/build/bin/Release
         
     - name: Publish Artifacts
-      uses: softprops/action-gh-release@v1
+    - uses: ncipollo/release-action@v1
       with:
-        files: game.zip
+        artifacts: ${{github.workspace}}/build/bin/Release/*
+        body: "Latest game executable"
+        token: ${{ secrets.GITHUB_TOKEN }}
       
       
