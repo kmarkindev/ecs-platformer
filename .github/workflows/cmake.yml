@@ -32,10 +32,15 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-    - name: Publish binaries
-      uses: actions/upload-artifact@v2
+    - uses: ncipollo/release-action@v1
       with:
-        name: binaries
-        path: ${{github.workspace}}/build/bin/
+        artifacts: "${{github.workspace}}/build/bin/"
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+#     - name: Publish binaries
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: binaries
+#         path: ${{github.workspace}}/build/bin/
       
       
