@@ -25,15 +25,16 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
     - name: Create zip archive
-      uses: montudor/action-zip@v1
+      uses: vimtor/action-zip@v1
       with:
-        args: zip -qq -r ${{github.workspace}}/game.zip ${{github.workspace}}/build/bin/Release/
+        files: ${{github.workspace}}/build/bin/Release/
+        dest: ${{github.workspace}}/game.zip
         
     - name: Update release
       uses: ncipollo/release-action@v1
       with:
         tag: 'game.zip'
-        artifacts: ${{github.workspace}}/build/bin/Release/*
+        artifacts: ${{github.workspace}}/game.zip
         body: "Latest game executable"
         token: ${{ secrets.GITHUB_TOKEN }}
       
