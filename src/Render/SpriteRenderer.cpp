@@ -23,10 +23,9 @@ void SpriteRenderer::RenderSprite(SpriteRenderer::RenderParams params)
     shader->UseProgram();
     texture->Bind(0);
 
-    glm::mat4 transform = glm::mat4(1.0f);
-
-    transform = glm::scale(transform, {params.sprite.GetSize().x, params.sprite.GetSize().y, 1});
-    transform = glm::translate(transform, {params.sprite.GetOffset().x, params.sprite.GetOffset().y, 0});
+    auto spriteSize = params.sprite.GetSize();
+    auto spriteOffset = params.sprite.GetOffset();
+    glm::mat4 transform = GetModelMatrix(spriteOffset, spriteSize, 0.0f);
 
     transform = params.transformMatrix * transform;
 

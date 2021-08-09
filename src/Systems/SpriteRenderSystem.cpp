@@ -10,7 +10,9 @@ void SpriteRenderSystem::Update(Scene& scene)
     auto camera = scene.GetEntities<CameraComponent, TransformComponent>().front();
     auto sprites = scene.GetEntities<SpriteComponent, TransformComponent>();
 
-    auto cameraMatrix = GetCameraMatrix(camera.GetComponent<TransformComponent>().position, 0);
+    auto cameraMatrix = GetCameraMatrix(camera.GetComponent<TransformComponent>().position,
+                                        camera.GetComponent<TransformComponent>().angle);
+
     auto projectionMatrix = GetOthroProjectionMatrix(
             _container->_window->GetWindowSize(), camera.GetComponent<CameraComponent>().zoom);
 
