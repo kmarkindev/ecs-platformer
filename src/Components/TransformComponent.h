@@ -9,7 +9,7 @@ struct TransformComponent : public IComponent
 {
     glm::vec2 position;
     glm::vec2 scale;
-    glm::quat rotation;
+    glm::quat rotation; //TODO: replace to angle
 
     TransformComponent(glm::vec2 position, glm::vec2 scale, glm::quat rotation)
         : position(position), scale(scale), rotation(rotation)
