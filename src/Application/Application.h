@@ -12,7 +12,6 @@
 #include "Assets/OpenGlShaderLoader.h"
 #include "Scene/SceneManager.h"
 #include "Scene/SceneFactories/TestScene.h"
-#include "Scene/SceneFactories/TestScene2.h"
 
 class Application
 {
