@@ -1,6 +1,6 @@
 add_executable(executable)
 
-target_link_libraries(executable PUBLIC glfw EnTT::EnTT glm stb::image imgui)
+target_link_libraries(executable PUBLIC glfw EnTT::EnTT glm stb::image imgui box2d)
 
 target_sources(executable PUBLIC
     Main.cpp

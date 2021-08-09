@@ -15,3 +15,9 @@ add_subdirectory(entt)
 add_subdirectory(imgui)
 
 add_subdirectory(stb)
+
+set(BOX2D_BUILD_UNIT_TESTS OFF)
+set(BOX2D_BUILD_TESTBED OFF)
+set(BOX2D_BUILD_DOCS OFF)
+set(BOX2D_USER_SETTINGS OFF)
+add_subdirectory(box2d)
