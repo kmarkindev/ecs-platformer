@@ -1,5 +1,6 @@
 #pragma once
 
+#include <glm/glm.hpp>
 #include "Scene/ISystem.h"
 #include "Components/TransformComponent.h"
 #include "Components/CameraComponent.h"

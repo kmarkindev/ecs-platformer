@@ -5,7 +5,6 @@
 #include "Assets/Sprite.h"
 #include <glad/glad.h>
 #include <glm/glm.hpp>
-#include <glm/gtx/quaternion.hpp>
 #include "VertexArray.h"
 #include "Assets/OpenGlShaderLoader.h"
 #include "Assets/AssetsManager.h"
