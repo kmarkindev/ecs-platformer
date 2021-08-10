@@ -4,9 +4,9 @@ glm::mat4 GetModelMatrix(glm::vec2 position, glm::vec2 scale, float angle)
 {
     auto res = glm::mat4(1.0f);
 
-    res = glm::rotate(glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f)) * res;
-    res = glm::scale(res, {scale.x, scale.y, 0});
     res = glm::translate(res, {position.x, position.y, 0});
+    res = glm::rotate(res, glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));
+    res = glm::scale(res, {scale.x, scale.y, 0});
 
     return res;
 }
@@ -30,6 +30,7 @@ glm::mat4 GetOthroProjectionMatrix(glm::ivec2 viewportSize, float zoom)
 glm::mat4 GetCameraMatrix(glm::vec2 cameraPos, float angle)
 {
     auto res = glm::mat4(1.0f);
+    res = glm::translate(res, {-cameraPos.x, -cameraPos.y, 0});
     res = glm::rotate(-angle, glm::vec3(0.0f, 0.0f, 1.0f)) * res;
-    return glm::translate(res, {-cameraPos.x, -cameraPos.y, 0});
+    return res;
 }
