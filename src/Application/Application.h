@@ -20,7 +20,6 @@ public:
     bool Update();
 private:
     DependencyContainer* _container;
-    Scene _scene;
 
     void InitializeContainer(AppParams params);
     void RegisterSceneFactories();

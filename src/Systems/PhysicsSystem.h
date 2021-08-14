@@ -25,9 +25,11 @@ private:
 
     void SyncPropsBetweenSceneAndPhysicsWorld(Scene& scene);
 
-    void UpdateTransforms(std::vector<Entity>& entities) const;
+    void UpdateTransforms(std::vector<Entity>& entities);
 
-    void UpdateParams(std::vector<Entity>& entities) const;
+    void UpdateParams(Entity& ent);
+
+    void UpdatePhysicsTransfroms(Entity& ent);
 };
 
 

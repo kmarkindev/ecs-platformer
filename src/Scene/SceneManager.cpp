@@ -22,6 +22,8 @@ void SceneManager::LoadScene(int sceneId)
     _activeScene.second.reset();
 
     _activeScene = {sceneId, factory->second->LoadScene()};
+
+    _activeScene.second->InitSystems();
 }
 
 std::pair<int, std::shared_ptr<Scene>> SceneManager::GetActiveScene()

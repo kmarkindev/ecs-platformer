@@ -4,7 +4,6 @@ Application::Application(AppParams params)
 {
     InitializeContainer(std::move(params));
     RegisterSceneFactories();
-    _scene.InitSystems();
     _container->_deltaTime->ResetDeltaTime();
 }
 

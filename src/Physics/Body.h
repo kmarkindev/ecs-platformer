@@ -39,6 +39,7 @@ public:
     [[nodiscard]] float GetAngle() const;
     void SetAngle(float angle);
     void UpdateParams(const BodyParams& params);
+    void DestoryBody();
 
 private:
     b2Body* _body;

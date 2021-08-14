@@ -49,7 +49,7 @@ glm::vec2 Body::GetPosition() const
 
 void Body::SetPosition(glm::vec2 pos)
 {
-    float oldAngle = glm::degrees(_body->GetAngle());
+    float oldAngle = _body->GetAngle();
     _body->SetTransform({pos.x, pos.y}, oldAngle);
     _body->SetAwake(true);
 }
@@ -111,4 +111,11 @@ b2PolygonShape Body::CreateBoxShape(const Body::BodyParams& params)
     b2PolygonShape shape;
     shape.SetAsBox(params.boxSize.x / 2.0f, params.boxSize.y / 2.0f);
     return shape;
+}
+
+void Body::DestoryBody()
+{
+    _world->DestroyBody(_body);
+    _body = nullptr;
+    _fixture = nullptr;
 }
