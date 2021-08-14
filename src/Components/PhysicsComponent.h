@@ -8,4 +8,5 @@ struct PhysicsComponent
     float momentOfInertia;
     float friction;
     Body::BodyType bodyType;
+    glm::vec2 collisionBoxSize;
 };

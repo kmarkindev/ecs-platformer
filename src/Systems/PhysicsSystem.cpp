@@ -13,6 +13,8 @@ void PhysicsSystem::Init(Scene& scene)
 
 void PhysicsSystem::Update(Scene& scene)
 {
+    _world.Update();
+
     InitializeNewEntities(scene);
 
     SyncPropsBetweenSceneAndPhysicsWorld(scene);
@@ -26,7 +28,8 @@ int PhysicsSystem::GetPriority()
 void PhysicsSystem::InitializeNewEntities(Scene& scene)
 {
     auto notInitializedEntities =
-            scene.GetEntities<PhysicsComponent>(Scene::ExcludeComponents<PhysicsBodyComponent>());
+            scene.GetEntities<PhysicsComponent,
+                TransformComponent>(Scene::ExcludeComponents<PhysicsBodyComponent>());
 
     for(auto& entity : notInitializedEntities)
     {
@@ -39,16 +42,57 @@ void PhysicsSystem::InitializeNewEntities(Scene& scene)
             .mass = pComp.mass,
             .momentOfInertia = pComp.momentOfInertia,
             .friction = pComp.friction,
-            .type = pComp.bodyType
+            .type = pComp.bodyType,
+            .boxSize = pComp.collisionBoxSize * tComp.scale
         };
 
         auto body = _world.CreateBody(params);
-        //FIXME: replace std::move to ptr
-        //entity.AddComponent<PhysicsBodyComponent>(std::move(body));
+        _bodies.push_front(std::move(body));
+
+        entity.AddComponent<PhysicsBodyComponent>(&_bodies.front());
     }
 }
 
 void PhysicsSystem::SyncPropsBetweenSceneAndPhysicsWorld(Scene& scene)
 {
+    auto entities = scene.GetEntities<PhysicsComponent,
+        PhysicsBodyComponent, TransformComponent>();
 
+    UpdateTransforms(entities);
+
+    //TODO: Call it only when smth is changed in PhysicsComponent
+    //UpdateParams(entities);
+}
+
+void PhysicsSystem::UpdateParams(std::vector<Entity>& entities) const
+{
+    for(auto& ent : entities)
+    {
+        auto pComp = ent.GetComponent<PhysicsComponent>();
+        auto pbComp = ent.GetComponent<PhysicsBodyComponent>();
+        auto tComp = ent.GetComponent<TransformComponent>();
+
+        Body::BodyParams params = {
+            .mass = pComp.mass,
+            .momentOfInertia = pComp.momentOfInertia,
+            .friction = pComp.friction,
+            .type = pComp.bodyType,
+            .boxSize = pComp.collisionBoxSize * tComp.scale
+        };
+
+        pbComp.body->UpdateParams(params);
+    }
+}
+
+void PhysicsSystem::UpdateTransforms(std::vector<Entity>& entities) const
+{
+    for(auto& ent : entities)
+    {
+        auto pbComp = ent.GetComponent<PhysicsBodyComponent>();
+
+        ent.PatchComponent<TransformComponent>([&pbComp](auto& tComp){
+            tComp.position = pbComp.body->GetPosition();
+            tComp.angle = pbComp.body->GetAngle();
+        });
+    }
 }

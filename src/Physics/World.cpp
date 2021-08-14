@@ -3,7 +3,6 @@
 World::World(glm::vec2 gravity)
     : _world(b2Vec2(gravity.x, gravity.y))
 {
-
 }
 
 Body World::CreateBody(const Body::BodyParams& params)

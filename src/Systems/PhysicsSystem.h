@@ -19,9 +19,15 @@ public:
 
 private:
     World _world;
+    std::list<Body> _bodies;
 
     void InitializeNewEntities(Scene& scene);
+
     void SyncPropsBetweenSceneAndPhysicsWorld(Scene& scene);
+
+    void UpdateTransforms(std::vector<Entity>& entities) const;
+
+    void UpdateParams(std::vector<Entity>& entities) const;
 };
 
 

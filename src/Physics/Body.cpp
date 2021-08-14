@@ -7,11 +7,17 @@ Body::Body(b2World& world, const BodyParams& params)
     b2BodyDef bodyDef;
     bodyDef.type = ConvertBodyType(params.type);
     bodyDef.position = { params.position. x, params.position.y };
-    bodyDef.angle = params.angle;
+    bodyDef.angle = glm::radians(params.angle);
 
-    //TODO: set mass, momentOfInertia, friction for new body
+    auto shape = CreateBoxShape(params);
+
+    auto fixtureDef = CreateFixtureDef(params, shape);
 
     _body = _world->CreateBody(&bodyDef);
+    _fixture = _body->CreateFixture(&fixtureDef);
+
+    auto massData = CreateMassData(params);
+    _body->SetMassData(&massData);
 }
 
 Body::~Body()
@@ -43,19 +49,66 @@ glm::vec2 Body::GetPosition() const
 
 void Body::SetPosition(glm::vec2 pos)
 {
-    float oldAngle = _body->GetAngle();
+    float oldAngle = glm::degrees(_body->GetAngle());
     _body->SetTransform({pos.x, pos.y}, oldAngle);
     _body->SetAwake(true);
 }
 
 float Body::GetAngle() const
 {
-    return _body->GetAngle();
+    return glm::degrees(_body->GetAngle());
 }
 
 void Body::SetAngle(float angle)
 {
     auto oldPos = _body->GetPosition();
-    _body->SetTransform(oldPos, angle);
+    _body->SetTransform(oldPos, glm::radians(angle));
     _body->SetAwake(true);
+}
+
+Body::Body(Body&& body) noexcept
+    : _body(body._body),
+    _world(body._world),
+    _fixture(body._fixture)
+{
+    body._body = nullptr;
+    body._world = nullptr;
+    body._fixture = nullptr;
+}
+
+void Body::UpdateParams(const Body::BodyParams& params)
+{
+    auto massData = CreateMassData(params);
+    _body->SetMassData(&massData);
+
+    _body->SetType(ConvertBodyType(params.type));
+
+    auto shape = CreateBoxShape(params);
+    auto fixtureDef = CreateFixtureDef(params, shape);
+    _fixture = _body->CreateFixture(&fixtureDef);
+}
+
+b2MassData Body::CreateMassData(const Body::BodyParams& params)
+{
+    return {
+        .mass = params.mass,
+        .center = {0.0f, 0.0f},
+        .I = params.momentOfInertia
+    };
+}
+
+b2FixtureDef Body::CreateFixtureDef(const Body::BodyParams& params, b2Shape& shape)
+{
+    b2FixtureDef fixtureDef;
+    fixtureDef.friction = params.friction;
+    fixtureDef.shape = &shape;
+
+    return fixtureDef;
+}
+
+b2PolygonShape Body::CreateBoxShape(const Body::BodyParams& params)
+{
+    b2PolygonShape shape;
+    shape.SetAsBox(params.boxSize.x / 2.0f, params.boxSize.y / 2.0f);
+    return shape;
 }
