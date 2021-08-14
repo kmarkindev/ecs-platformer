@@ -30,7 +30,7 @@ public:
     template<typename... Filter, typename... Exclude>
     [[nodiscard]] std::vector<Entity> GetEntities(ExcludeComponents<Exclude...> exclude = {}) const
     {
-        auto entities = _registry.view<const Filter...>(entt::exclude<const Exclude...>);
+        auto entities = _registry.view<Filter...>(entt::exclude<Exclude...>);
 
         std::vector<Entity> result;
         for(entt::entity entity : entities)
@@ -66,7 +66,7 @@ public:
     }
 
 private:
-    entt::registry _registry;
+    mutable entt::registry _registry;
     std::map<std::size_t, std::shared_ptr<ISystem>> _systems;
 
     std::vector<std::pair<std::size_t, std::shared_ptr<ISystem>>> GetSortedSystems();

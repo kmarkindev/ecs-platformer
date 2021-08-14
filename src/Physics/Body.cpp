@@ -9,12 +9,15 @@ Body::Body(b2World& world, const BodyParams& params)
     bodyDef.position = { params.position. x, params.position.y };
     bodyDef.angle = params.angle;
 
+    //TODO: set mass, momentOfInertia, friction for new body
+
     _body = _world->CreateBody(&bodyDef);
 }
 
 Body::~Body()
 {
-    _world->DestroyBody(_body);
+    if(_body)
+        _world->DestroyBody(_body);
 }
 
 b2BodyType Body::ConvertBodyType(BodyType type)
