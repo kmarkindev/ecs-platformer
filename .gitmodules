@@ -1,13 +1,3 @@
-[submodule "3rdparty/glfw"]
-	path = 3rdparty/glfw
-	url = https://github.com/glfw/glfw.git
-	branch = 3.3-stable
-[submodule "3rdparty/entt"]
-	path = 3rdparty/entt
-	url = https://github.com/skypjack/entt.git
-[submodule "3rdparty/glm"]
-	path = 3rdparty/glm
-	url = https://github.com/g-truc/glm.git
 [submodule "3rdparty/box2d"]
 	path = 3rdparty/box2d
 	url = https://github.com/erincatto/box2d.git
