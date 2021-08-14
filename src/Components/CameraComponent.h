@@ -1,14 +1,6 @@
 #pragma once
 
-#include "Scene/IComponent.h"
-
-struct CameraComponent : public IComponent
+struct CameraComponent
 {
     float zoom;
-
-    explicit CameraComponent(float zoom)
-        : zoom(zoom)
-    {
-
-    }
 };

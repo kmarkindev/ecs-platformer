@@ -1,0 +1,113 @@
+#include "PhysicsSystem.h"
+
+PhysicsSystem::PhysicsSystem()
+: _world({0.0f, -9.8f})
+{
+
+}
+
+void PhysicsSystem::Init(Scene& scene)
+{
+    scene.OnUpdate<PhysicsComponent>([this](Scene& scene, Entity entity){
+        if(entity.HasAllOfComponents<PhysicsBodyComponent, TransformComponent>())
+            UpdateParams(entity);
+    });
+
+    scene.OnUpdate<TransformComponent>([this](Scene& scene, Entity entity){
+        if(entity.HasAllOfComponents<PhysicsBodyComponent>())
+            UpdatePhysicsTransfroms(entity);
+    });
+
+    scene.OnDestroy<PhysicsBodyComponent>([](Scene& scene, Entity entity){
+        entity.GetComponent<PhysicsBodyComponent>().body->DestoryBody();
+    });
+}
+
+void PhysicsSystem::Update(Scene& scene)
+{
+    _world.Update();
+
+    InitializeNewEntities(scene);
+
+    SyncPropsBetweenSceneAndPhysicsWorld(scene);
+}
+
+int PhysicsSystem::GetPriority()
+{
+    return 9;
+}
+
+void PhysicsSystem::InitializeNewEntities(Scene& scene)
+{
+    auto notInitializedEntities =
+            scene.GetEntities<PhysicsComponent,
+                TransformComponent>(Scene::ExcludeComponents<PhysicsBodyComponent>());
+
+    for(auto& entity : notInitializedEntities)
+    {
+        auto pComp = entity.GetComponent<PhysicsComponent>();
+        auto tComp = entity.GetComponent<TransformComponent>();
+
+        Body::BodyParams params = {
+            .position = tComp.position,
+            .angle = tComp.angle,
+            .mass = pComp.mass,
+            .momentOfInertia = pComp.momentOfInertia,
+            .friction = pComp.friction,
+            .type = pComp.bodyType,
+            .boxSize = pComp.collisionBoxSize * tComp.scale
+        };
+
+        auto body = _world.CreateBody(params);
+        _bodies.push_front(std::move(body));
+
+        entity.AddComponent<PhysicsBodyComponent>(&_bodies.front());
+    }
+}
+
+void PhysicsSystem::SyncPropsBetweenSceneAndPhysicsWorld(Scene& scene)
+{
+    auto entities = scene.GetEntities<PhysicsComponent,
+        PhysicsBodyComponent, TransformComponent>();
+
+    UpdateTransforms(entities);
+}
+
+void PhysicsSystem::UpdateParams(Entity& ent)
+{
+    auto pComp = ent.GetComponent<PhysicsComponent>();
+    auto pbComp = ent.GetComponent<PhysicsBodyComponent>();
+    auto tComp = ent.GetComponent<TransformComponent>();
+
+    Body::BodyParams params = {
+        .mass = pComp.mass,
+        .momentOfInertia = pComp.momentOfInertia,
+        .friction = pComp.friction,
+        .type = pComp.bodyType,
+        .boxSize = pComp.collisionBoxSize * tComp.scale
+    };
+
+    pbComp.body->UpdateParams(params);
+}
+
+void PhysicsSystem::UpdateTransforms(std::vector<Entity>& entities)
+{
+    for(auto& ent : entities)
+    {
+        auto pbComp = ent.GetComponent<PhysicsBodyComponent>();
+
+        ent.PatchComponent<TransformComponent>([&pbComp](auto& tComp){
+            tComp.position = pbComp.body->GetPosition();
+            tComp.angle = pbComp.body->GetAngle();
+        });
+    }
+}
+
+void PhysicsSystem::UpdatePhysicsTransfroms(Entity& ent)
+{
+    auto pbComp = ent.GetComponent<PhysicsBodyComponent>();
+    auto tComp = ent.GetComponent<TransformComponent>();
+
+    pbComp.body->SetAngle(tComp.angle);
+    pbComp.body->SetPosition(tComp.position);
+}

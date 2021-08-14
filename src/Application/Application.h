@@ -12,7 +12,6 @@
 #include "Assets/OpenGlShaderLoader.h"
 #include "Scene/SceneManager.h"
 #include "Scene/SceneFactories/TestScene.h"
-#include "Scene/SceneFactories/TestScene2.h"
 
 class Application
 {
@@ -21,7 +20,6 @@ public:
     bool Update();
 private:
     DependencyContainer* _container;
-    Scene _scene;
 
     void InitializeContainer(AppParams params);
     void RegisterSceneFactories();

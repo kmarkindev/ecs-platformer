@@ -7,7 +7,7 @@ Scene::Scene()
 
 Entity Scene::CreateEntity()
 {
-    return Entity(_registry.create(), &_registry);
+    return {_registry.create(), &_registry};
 }
 
 void Scene::UpdateSystems()
@@ -39,4 +39,29 @@ std::vector<std::pair<std::size_t, std::shared_ptr<ISystem>>> Scene::GetSortedSy
     });
 
     return res;
+}
+
+Scene::EventHandler::EventHandler(Scene& scene, Scene::EventHandler::Callback callback)
+    : _scene(&scene),
+    _callback(std::move(callback))
+{
+
+}
+
+void Scene::EventHandler::HandleSignal(entt::registry& reg, entt::entity ent)
+{
+    _callback(*_scene, Entity(ent, &reg));
+}
+
+Scene::EventHandler* Scene::GetHandler(const std::function<void(Scene&, Entity)>& callback)
+{
+    auto handler = new Scene::EventHandler(*this, callback);
+    _eventHandlers.push_front(handler);
+    return handler;
+}
+
+Scene::~Scene()
+{
+    for(auto handler : _eventHandlers)
+        delete handler;
 }

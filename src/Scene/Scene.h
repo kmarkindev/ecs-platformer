@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <memory>
 #include <typeinfo>
+#include <forward_list>
 
 class ISystem;
 class Entity;
@@ -20,8 +21,24 @@ public:
 
     template<typename... Exclude> struct ExcludeComponents {};
 
+private:
+
+    struct EventHandler
+    {
+        friend class Scene;
+        typedef std::function<void(Scene&, Entity)> Callback;
+
+        Callback _callback;
+        Scene* _scene;
+
+        EventHandler(Scene& scene, Callback callback);
+
+        void HandleSignal(entt::registry& reg, entt::entity ent);
+    };
+
 public:
     Scene();
+    ~Scene();
 
     Entity CreateEntity();
     void UpdateSystems();
@@ -30,7 +47,7 @@ public:
     template<typename... Filter, typename... Exclude>
     [[nodiscard]] std::vector<Entity> GetEntities(ExcludeComponents<Exclude...> exclude = {}) const
     {
-        auto entities = _registry.view<const Filter...>(entt::exclude<const Exclude...>);
+        auto entities = _registry.view<Filter...>(entt::exclude<Exclude...>);
 
         std::vector<Entity> result;
         for(entt::entity entity : entities)
@@ -65,11 +82,35 @@ public:
             _systems.erase(iterator);
     }
 
+    template<typename Component>
+    void OnUpdate(std::function<void(Scene&, Entity)> callback)
+    {
+        _registry.on_update<Component>()
+            .template connect<&EventHandler::HandleSignal>(GetHandler(callback));
+    }
+
+    template<typename Component>
+    void OnDestroy(std::function<void(Scene&, Entity)> callback)
+    {
+        _registry.on_destroy<Component>()
+            .template connect<&EventHandler::HandleSignal>(GetHandler(callback));
+    }
+
+    template<typename Component>
+    void OnCreate(std::function<void(Scene&, Entity)> callback)
+    {
+        _registry.on_construct<Component>()
+            .template connect<&EventHandler::HandleSignal>(GetHandler(callback));
+    }
+
 private:
-    entt::registry _registry;
+    mutable entt::registry _registry;
     std::map<std::size_t, std::shared_ptr<ISystem>> _systems;
+    std::forward_list<EventHandler*> _eventHandlers;
 
     std::vector<std::pair<std::size_t, std::shared_ptr<ISystem>>> GetSortedSystems();
+
+    EventHandler* GetHandler(const std::function<void(Scene&, Entity)>& callback);
 };
 
 
