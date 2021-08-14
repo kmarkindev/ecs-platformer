@@ -9,15 +9,12 @@ void SinMoveSystem::Update(Scene& scene)
 {
     auto objs = scene.GetEntities<TransformComponent, SpriteComponent>();
 
-    //Systems should not have stored data. I need it only for testing purposes.
-    static float offset = 0.0f;
-    offset += 0.001f;
-    float offsetForLambda = offset;
+    _offset += _container->_deltaTime->GetDeltaTime();
 
     for(auto& obj : objs)
     {
-        obj.PatchComponent<TransformComponent>([offsetForLambda](auto& transform){
-            transform.position.x = glm::sin(offsetForLambda);
+        obj.PatchComponent<TransformComponent>([this](auto& transform){
+            transform.position.x = glm::sin(_offset);
         });
     }
 }
@@ -25,4 +22,11 @@ void SinMoveSystem::Update(Scene& scene)
 int SinMoveSystem::GetPriority()
 {
     return 1;
+}
+
+SinMoveSystem::SinMoveSystem()
+    : _container(DependencyContainer::GetInstance()),
+    _offset(0.0f)
+{
+
 }
