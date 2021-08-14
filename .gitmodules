@@ -1,3 +1,6 @@
+[submodule "3rdparty/box2d"]
+	path = 3rdparty/box2d
+	url = https://github.com/erincatto/box2d.git
 [submodule "3rdparty/glfw"]
 	path = 3rdparty/glfw
 	url = https://github.com/glfw/glfw.git
@@ -8,6 +11,3 @@
 [submodule "3rdparty/glm"]
 	path = 3rdparty/glm
 	url = https://github.com/g-truc/glm.git
-[submodule "3rdparty/box2d"]
-	path = 3rdparty/box2d
-	url = https://github.com/erincatto/box2d.git
