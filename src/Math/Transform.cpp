@@ -31,6 +31,6 @@ glm::mat4 GetCameraMatrix(glm::vec2 cameraPos, float angle)
 {
     auto res = glm::mat4(1.0f);
     res = glm::translate(res, {-cameraPos.x, -cameraPos.y, 0});
-    res = glm::rotate(-angle, glm::vec3(0.0f, 0.0f, 1.0f)) * res;
+    res = glm::rotate(res, glm::radians(-angle), glm::vec3(0.0f, 0.0f, 1.0f));
     return res;
 }
