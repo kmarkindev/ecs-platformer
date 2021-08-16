@@ -6,6 +6,9 @@ target_sources(executable PUBLIC
     ISystem.h
 	SceneManager.cpp
 	SceneManager.h
+	EventListener.h
+	EventListener.cpp
 )
 
 add_subdirectory(SceneFactories)
+add_subdirectory(Events)
