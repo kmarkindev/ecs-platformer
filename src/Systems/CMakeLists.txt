@@ -3,4 +3,6 @@ target_sources(executable PUBLIC
 	SpriteRenderSystem.h
 	PhysicsSystem.cpp
 	PhysicsSystem.h
+	TestSystem.cpp
+	TestSystem.h
 )

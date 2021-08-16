@@ -11,7 +11,7 @@ const Body& CollisionEnter::GetB() const
 }
 
 CollisionEnter::CollisionEnter(Body& bodyA, Body& bodyB)
-    : _a(std::move(bodyA)), _b(std::move(bodyB))
+    : _a(bodyA), _b(bodyB)
 {
 
 }

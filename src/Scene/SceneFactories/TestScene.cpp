@@ -30,6 +30,7 @@ std::shared_ptr<Scene> TestScene::LoadScene()
 
     scene->AddSystem<SpriteRenderSystem>();
     scene->AddSystem<PhysicsSystem>();
+    scene->AddSystem<TestSystem>();
 
     return scene;
 }

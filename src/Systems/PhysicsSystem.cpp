@@ -9,6 +9,11 @@ PhysicsSystem::PhysicsSystem()
 void PhysicsSystem::Init(Scene& scene)
 {
     BindSceneEvents(scene);
+
+    _world.OnCollisionEnter([&](Body a, Body b)
+    {
+        scene.GetEventListener().RaiseEvent<CollisionEnter>(a, b);
+    });
 }
 
 void PhysicsSystem::BindSceneEvents(Scene& scene)
@@ -39,7 +44,7 @@ void PhysicsSystem::Update(Scene& scene)
 
 int PhysicsSystem::GetPriority()
 {
-    return 9;
+    return (int)SystemPriorities::PhysicsSystem;
 }
 
 void PhysicsSystem::InitializeNewEntities(Scene& scene)

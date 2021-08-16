@@ -45,5 +45,5 @@ SpriteRenderSystem::SpriteRenderSystem()
 
 int SpriteRenderSystem::GetPriority()
 {
-    return 0;
+    return (int)SystemPriorities::SpriteRenderSystem;
 }

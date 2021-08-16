@@ -5,6 +5,7 @@
 #include "Components/PhysicsBodyComponent.h"
 #include "Components/PhysicsComponent.h"
 #include "Components/TransformComponent.h"
+#include "Scene/SystemPriorities.h"
 
 class PhysicsSystem : public ISystem
 {

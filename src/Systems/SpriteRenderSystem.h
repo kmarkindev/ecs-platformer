@@ -7,6 +7,7 @@
 #include "Components/SpriteComponent.h"
 #include "Math/Transform.h"
 #include "Container/DependencyContainer.h"
+#include "Scene/SystemPriorities.h"
 
 class DependencyContainer;
 

@@ -13,14 +13,14 @@ public:
     template<typename Event, typename... Args>
     void RaiseEvent(Args&&... args)
     {
-        auto event = Event(args...);
+        auto event = Event(std::forward<Args>(args)...);
 
-        for(auto variant : _subscribers)
+        for(auto& variant : _subscribers)
         {
-            auto callback = std::get_if<std::function<void(Event&)>>();
+            auto callback = std::get_if<std::function<void(Event&)>>(&variant);
 
             if(callback)
-                callback(event);
+                (*callback)(event);
         }
 
     }

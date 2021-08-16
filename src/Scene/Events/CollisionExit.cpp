@@ -1,7 +1,7 @@
 #include "CollisionExit.h"
 
 CollisionExit::CollisionExit(Body& bodyA, Body& bodyB)
-    : _a(std::move(bodyA)), _b(std::move(bodyB))
+    : _a(bodyA), _b(bodyB)
 {
 
 }
