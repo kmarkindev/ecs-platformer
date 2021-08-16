@@ -6,6 +6,9 @@
 #include "Components/PhysicsComponent.h"
 #include "Components/TransformComponent.h"
 #include "Scene/SystemPriorities.h"
+#include "Container/DependencyContainer.h"
+
+class DependencyContainer;
 
 class PhysicsSystem : public ISystem
 {
@@ -21,6 +24,8 @@ public:
 private:
     World _world;
     std::list<Body> _bodies;
+    DependencyContainer* _container;
+    float _physicsDeltaTime;
 
     void InitializeNewEntities(Scene& scene);
 
@@ -33,6 +38,8 @@ private:
     void UpdatePhysicsTransforms(Entity& ent);
 
     void BindSceneEvents(Scene& scene);
+
+    void UpdatePhysics();
 };
 
 

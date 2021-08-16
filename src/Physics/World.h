@@ -38,7 +38,7 @@ public:
     void OnCollisionEnter(const CollisionCallback& callback);
     void OnCollisionExit(const CollisionCallback& callback);
 
-    void Update();
+    void Update(float timestamp);
 
 private:
     b2World _world;

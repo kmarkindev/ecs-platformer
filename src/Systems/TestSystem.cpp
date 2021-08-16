@@ -2,9 +2,9 @@
 
 void TestSystem::Init(Scene& scene)
 {
-    scene.GetEventListener().Subscribe<CollisionEnter>([](CollisionEnter& event)
+    scene.GetEventListener().Subscribe<CollisionExit>([](CollisionExit& event)
     {
-        DependencyContainer::GetInstance()->_window->RaiseCloseSignal();
+        DependencyContainer::GetInstance()->_sceneManager->LoadScene(0);
     });
 }
 

@@ -13,6 +13,7 @@ Window::Window(const std::string& title, int width, int height, bool fullScreen)
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
 #endif
 
+    glfwWindowHint(GLFW_SAMPLES, 4);
     _window = glfwCreateWindow(width, height, charTitle, fullScreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
 
     glfwMakeContextCurrent(_window);

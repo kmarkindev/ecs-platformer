@@ -1,7 +1,9 @@
 #include "PhysicsSystem.h"
 
 PhysicsSystem::PhysicsSystem()
-: _world({0.0f, -9.8f})
+    : _world({0.0f, -9.8f}),
+    _container(DependencyContainer::GetInstance()),
+    _physicsDeltaTime(0.0f)
 {
 
 }
@@ -13,6 +15,11 @@ void PhysicsSystem::Init(Scene& scene)
     _world.OnCollisionEnter([&](Body a, Body b)
     {
         scene.GetEventListener().RaiseEvent<CollisionEnter>(a, b);
+    });
+
+    _world.OnCollisionExit([&](Body a, Body b)
+    {
+        scene.GetEventListener().RaiseEvent<CollisionExit>(a, b);
     });
 }
 
@@ -35,11 +42,23 @@ void PhysicsSystem::BindSceneEvents(Scene& scene)
 
 void PhysicsSystem::Update(Scene& scene)
 {
-    _world.Update();
+    UpdatePhysics();
 
     InitializeNewEntities(scene);
 
     SyncPropsBetweenSceneAndPhysicsWorld(scene);
+}
+
+void PhysicsSystem::UpdatePhysics()
+{
+    _physicsDeltaTime += _container->_deltaTime->GetDeltaTime();
+    constexpr float physicsTimestamp = 1.0f / 50.0f;
+
+    if(_physicsDeltaTime >= physicsTimestamp)
+    {
+        _physicsDeltaTime = 0.0f;
+        _world.Update(physicsTimestamp);
+    }
 }
 
 int PhysicsSystem::GetPriority()

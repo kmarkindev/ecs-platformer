@@ -12,9 +12,9 @@ Body World::CreateBody(const Body::BodyParams& params)
     return Body(_world, params);
 }
 
-void World::Update()
+void World::Update(float timestamp)
 {
-    _world.Step(1 / 60.0f, 8, 3);
+    _world.Step(timestamp, 6, 2);
 }
 
 void World::OnCollisionEnter(const CollisionCallback& callback)
