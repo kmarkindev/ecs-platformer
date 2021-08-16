@@ -20,12 +20,6 @@ Body::Body(b2World& world, const BodyParams& params)
     _body->SetMassData(&massData);
 }
 
-Body::~Body()
-{
-    if(_body)
-        _world->DestroyBody(_body);
-}
-
 b2BodyType Body::ConvertBodyType(BodyType type)
 {
     switch(type)
@@ -66,16 +60,6 @@ void Body::SetAngle(float angle)
     _body->SetAwake(true);
 }
 
-Body::Body(Body&& body) noexcept
-    : _body(body._body),
-    _world(body._world),
-    _fixture(body._fixture)
-{
-    body._body = nullptr;
-    body._world = nullptr;
-    body._fixture = nullptr;
-}
-
 void Body::UpdateParams(const Body::BodyParams& params)
 {
     auto massData = CreateMassData(params);
@@ -113,9 +97,17 @@ b2PolygonShape Body::CreateBoxShape(const Body::BodyParams& params)
     return shape;
 }
 
-void Body::DestoryBody()
+void Body::DestroyBody()
 {
     _world->DestroyBody(_body);
     _body = nullptr;
     _fixture = nullptr;
+}
+
+Body::Body(b2World& world, b2Body* existingBody)
+{
+    _world = &world;
+
+    _body = existingBody;
+    _fixture = existingBody->GetFixtureList();
 }

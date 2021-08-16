@@ -30,16 +30,14 @@ public:
 
 public:
     explicit Body(b2World& world, const BodyParams& params);
-    Body(const Body&) = delete;
-    Body(Body&&) noexcept;
-    ~Body();
+    explicit Body(b2World& world, b2Body* existingBody);
 
     [[nodiscard]] glm::vec2 GetPosition() const;
     void SetPosition(glm::vec2 pos);
     [[nodiscard]] float GetAngle() const;
     void SetAngle(float angle);
     void UpdateParams(const BodyParams& params);
-    void DestoryBody();
+    void DestroyBody();
 
 private:
     b2Body* _body;

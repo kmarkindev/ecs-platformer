@@ -29,7 +29,9 @@ private:
 
     void UpdateParams(Entity& ent);
 
-    void UpdatePhysicsTransfroms(Entity& ent);
+    void UpdatePhysicsTransforms(Entity& ent);
+
+    void BindSceneEvents(Scene& scene);
 };
 
 
