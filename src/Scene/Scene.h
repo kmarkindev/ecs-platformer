@@ -52,7 +52,7 @@ public:
         std::vector<Entity> result;
         for(entt::entity entity : entities)
         {
-            result.push_back(Entity(entity, const_cast<entt::registry*>(&_registry)));
+            result.emplace_back(entity, const_cast<entt::registry*>(&_registry));
         }
 
         return result;

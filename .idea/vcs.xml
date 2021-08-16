@@ -5,5 +5,6 @@
     <mapping directory="$PROJECT_DIR$/3rdparty/box2d" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/3rdparty/entt" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/3rdparty/glfw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/3rdparty/glm" vcs="Git" />
   </component>
 </project>
