@@ -65,3 +65,8 @@ Scene::~Scene()
     for(auto handler : _eventHandlers)
         delete handler;
 }
+
+EventListener& Scene::GetEventListener()
+{
+    return _eventlistener;
+}

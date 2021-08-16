@@ -8,6 +8,7 @@
 #include <memory>
 #include <typeinfo>
 #include <forward_list>
+#include "EventListener.h"
 
 class ISystem;
 class Entity;
@@ -43,6 +44,7 @@ public:
     Entity CreateEntity();
     void UpdateSystems();
     void InitSystems();
+    EventListener& GetEventListener();
 
     template<typename... Filter, typename... Exclude>
     [[nodiscard]] std::vector<Entity> GetEntities(ExcludeComponents<Exclude...> exclude = {}) const
@@ -52,7 +54,7 @@ public:
         std::vector<Entity> result;
         for(entt::entity entity : entities)
         {
-            result.push_back(Entity(entity, const_cast<entt::registry*>(&_registry)));
+            result.emplace_back(entity, const_cast<entt::registry*>(&_registry));
         }
 
         return result;
@@ -83,21 +85,21 @@ public:
     }
 
     template<typename Component>
-    void OnUpdate(std::function<void(Scene&, Entity)> callback)
+    void OnUpdate(const std::function<void(Scene&, Entity)>& callback)
     {
         _registry.on_update<Component>()
             .template connect<&EventHandler::HandleSignal>(GetHandler(callback));
     }
 
     template<typename Component>
-    void OnDestroy(std::function<void(Scene&, Entity)> callback)
+    void OnDestroy(const std::function<void(Scene&, Entity)>& callback)
     {
         _registry.on_destroy<Component>()
             .template connect<&EventHandler::HandleSignal>(GetHandler(callback));
     }
 
     template<typename Component>
-    void OnCreate(std::function<void(Scene&, Entity)> callback)
+    void OnCreate(const std::function<void(Scene&, Entity)>& callback)
     {
         _registry.on_construct<Component>()
             .template connect<&EventHandler::HandleSignal>(GetHandler(callback));
@@ -107,6 +109,8 @@ private:
     mutable entt::registry _registry;
     std::map<std::size_t, std::shared_ptr<ISystem>> _systems;
     std::forward_list<EventHandler*> _eventHandlers;
+    EventListener _eventlistener;
+
 
     std::vector<std::pair<std::size_t, std::shared_ptr<ISystem>>> GetSortedSystems();
 

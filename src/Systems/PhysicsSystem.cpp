@@ -8,6 +8,16 @@ PhysicsSystem::PhysicsSystem()
 
 void PhysicsSystem::Init(Scene& scene)
 {
+    BindSceneEvents(scene);
+
+    _world.OnCollisionEnter([&](Body a, Body b)
+    {
+        scene.GetEventListener().RaiseEvent<CollisionEnter>(a, b);
+    });
+}
+
+void PhysicsSystem::BindSceneEvents(Scene& scene)
+{
     scene.OnUpdate<PhysicsComponent>([this](Scene& scene, Entity entity){
         if(entity.HasAllOfComponents<PhysicsBodyComponent, TransformComponent>())
             UpdateParams(entity);
@@ -15,11 +25,11 @@ void PhysicsSystem::Init(Scene& scene)
 
     scene.OnUpdate<TransformComponent>([this](Scene& scene, Entity entity){
         if(entity.HasAllOfComponents<PhysicsBodyComponent>())
-            UpdatePhysicsTransfroms(entity);
+            UpdatePhysicsTransforms(entity);
     });
 
     scene.OnDestroy<PhysicsBodyComponent>([](Scene& scene, Entity entity){
-        entity.GetComponent<PhysicsBodyComponent>().body->DestoryBody();
+        entity.GetComponent<PhysicsBodyComponent>().body->DestroyBody();
     });
 }
 
@@ -34,7 +44,7 @@ void PhysicsSystem::Update(Scene& scene)
 
 int PhysicsSystem::GetPriority()
 {
-    return 9;
+    return (int)SystemPriorities::PhysicsSystem;
 }
 
 void PhysicsSystem::InitializeNewEntities(Scene& scene)
@@ -103,7 +113,7 @@ void PhysicsSystem::UpdateTransforms(std::vector<Entity>& entities)
     }
 }
 
-void PhysicsSystem::UpdatePhysicsTransfroms(Entity& ent)
+void PhysicsSystem::UpdatePhysicsTransforms(Entity& ent)
 {
     auto pbComp = ent.GetComponent<PhysicsBodyComponent>();
     auto tComp = ent.GetComponent<TransformComponent>();
