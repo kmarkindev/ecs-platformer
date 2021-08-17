@@ -1,8 +1,10 @@
 #include "Scene.h"
 
 Scene::Scene()
-    : _registry()
+    : _registry(),
+    _sceneManager(DependencyContainer::GetInstance()->_sceneManager)
 {
+
 }
 
 Entity Scene::CreateEntity()
@@ -14,6 +16,9 @@ void Scene::UpdateSystems()
 {
     for(auto& [key, sys] : GetSortedSystems())
     {
+        if(_sceneManager->SceneChanged())
+            return;
+
         sys->Update(*this);
     }
 }

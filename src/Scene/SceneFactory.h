@@ -2,6 +2,8 @@
 
 #include "Scene.h"
 
+class Scene;
+
 class ISceneFactory
 {
 public:

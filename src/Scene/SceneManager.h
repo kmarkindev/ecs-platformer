@@ -4,6 +4,9 @@
 #include "SceneFactory.h"
 #include <map>
 
+class DependencyContainer;
+class ISceneFactory;
+
 class SceneManager
 {
 public:
@@ -16,8 +19,13 @@ public:
 
     std::pair<int, std::shared_ptr<Scene>> GetActiveScene();
 
+    [[nodiscard]] bool SceneChanged() const;
+
+    void ResetSceneChanged();
+
 private:
 
+    bool _sceneChanged = false;
     std::map<int, std::shared_ptr<ISceneFactory>> _factories;
     std::pair<int, std::shared_ptr<Scene>> _activeScene;
 

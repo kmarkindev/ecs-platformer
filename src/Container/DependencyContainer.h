@@ -14,7 +14,8 @@
 #include "Render/SpriteRenderer.h"
 #include "Time/DeltaTime.h"
 #include "Scene/SceneManager.h"
-#include "Scene/SceneFactories/TestScene.h"
+
+class SceneManager;
 
 class DependencyContainer : public Singleton<DependencyContainer>
 {

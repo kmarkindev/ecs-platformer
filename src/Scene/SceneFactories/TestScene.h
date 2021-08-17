@@ -21,6 +21,7 @@ public:
 
 private:
 
+    std::shared_ptr<Scene> _scene = nullptr;
     Sprite* _groundSprite = nullptr;
     Sprite* _doorSprite = nullptr;
 

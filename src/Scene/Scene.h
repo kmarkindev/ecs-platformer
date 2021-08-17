@@ -9,9 +9,12 @@
 #include <typeinfo>
 #include <forward_list>
 #include "EventListener.h"
+#include "SceneManager.h"
+#include "Container/DependencyContainer.h"
 
 class ISystem;
 class Entity;
+class SceneManager;
 
 template<typename T>
 concept System = std::is_base_of_v<ISystem, T>;
@@ -110,7 +113,7 @@ private:
     std::map<std::size_t, std::shared_ptr<ISystem>> _systems;
     std::forward_list<EventHandler*> _eventHandlers;
     EventListener _eventlistener;
-
+    std::shared_ptr<SceneManager> _sceneManager;
 
     std::vector<std::pair<std::size_t, std::shared_ptr<ISystem>>> GetSortedSystems();
 
