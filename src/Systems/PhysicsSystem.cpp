@@ -84,11 +84,13 @@ void PhysicsSystem::InitializeNewEntities(Scene& scene)
             .momentOfInertia = pComp.momentOfInertia,
             .friction = pComp.friction,
             .type = pComp.bodyType,
-            .boxSize = pComp.collisionBoxSize * tComp.scale
+            .boxSize = pComp.collisionBoxSize * tComp.scale,
+            .angularVelocity = pComp.angularVelocity,
+            .linearVelocity = pComp.linearVelocity,
         };
 
         auto body = _world.CreateBody(params);
-        _bodies.push_front(std::move(body));
+        _bodies.push_front(body);
 
         entity.AddComponent<PhysicsBodyComponent>(&_bodies.front());
     }
@@ -113,7 +115,9 @@ void PhysicsSystem::UpdateParams(Entity& ent)
         .momentOfInertia = pComp.momentOfInertia,
         .friction = pComp.friction,
         .type = pComp.bodyType,
-        .boxSize = pComp.collisionBoxSize * tComp.scale
+        .boxSize = pComp.collisionBoxSize * tComp.scale,
+        .angularVelocity = pComp.angularVelocity,
+        .linearVelocity = pComp.linearVelocity
     };
 
     pbComp.body->UpdateParams(params);

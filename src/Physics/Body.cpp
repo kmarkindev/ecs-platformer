@@ -4,20 +4,28 @@ Body::Body(b2World& world, const BodyParams& params)
 {
     _world = &world;
 
-    b2BodyDef bodyDef;
-    bodyDef.type = ConvertBodyType(params.type);
-    bodyDef.position = { params.position. x, params.position.y };
-    bodyDef.angle = glm::radians(params.angle);
+    CreateBody(params);
 
     auto shape = CreateBoxShape(params);
 
     auto fixtureDef = CreateFixtureDef(params, shape);
 
-    _body = _world->CreateBody(&bodyDef);
     _fixture = _body->CreateFixture(&fixtureDef);
 
     auto massData = CreateMassData(params);
     _body->SetMassData(&massData);
+}
+
+void Body::CreateBody(const Body::BodyParams& params)
+{
+    b2BodyDef bodyDef;
+    bodyDef.type = ConvertBodyType(params.type);
+    bodyDef.position = { params.position. x, params.position.y };
+    bodyDef.angle = glm::radians(params.angle);
+    bodyDef.angularVelocity = params.angularVelocity;
+    bodyDef.linearVelocity = {params.linearVelocity.x, params.linearVelocity.y};
+
+    _body = _world->CreateBody(&bodyDef);
 }
 
 b2BodyType Body::ConvertBodyType(BodyType type)

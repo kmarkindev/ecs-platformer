@@ -26,6 +26,8 @@ public:
         float friction;
         BodyType type;
         glm::vec2 boxSize;
+        float angularVelocity = 0.0f;
+        glm::vec2 linearVelocity = {0.0f, 0.0f};
     };
 
 public:
@@ -52,4 +54,6 @@ private:
     b2FixtureDef CreateFixtureDef(const BodyParams& params, b2Shape& shape);
     b2MassData CreateMassData(const BodyParams& params);
     b2PolygonShape CreateBoxShape(const BodyParams& params);
+
+    void CreateBody(const BodyParams& params);
 };
