@@ -8,6 +8,7 @@
 #include "Assets/OpenGlTextureLoader.h"
 #include "Assets/OpenGlShaderLoader.h"
 #include "Assets/GroupedAssetsParser.h"
+#include "Assets/AssetsCache.h"
 #include "Render/Renderer.h"
 #include "Input/InputManager.h"
 #include "Render/SpriteRenderer.h"
@@ -29,6 +30,7 @@ public:
     std::shared_ptr<SpriteRenderer> _spriteRenderer;
     std::shared_ptr<DeltaTime> _deltaTime;
     std::shared_ptr<SceneManager> _sceneManager;
+    std::shared_ptr<AssetsCache> _assetsCache;
 };
 
 

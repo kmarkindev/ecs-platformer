@@ -5,11 +5,10 @@ std::shared_ptr<Scene> TestScene::LoadScene()
     auto scene = std::make_shared<Scene>();
     auto _container = DependencyContainer::GetInstance();
 
-    static Texture txt = _container->_textureLoader->LoadTexture(
-            _container->_assetsManager->GetAssetData(std::filesystem::path("image.png")));
-    static Sprite sprite = Sprite(&txt);
-    static Sprite groundSprite = Sprite(&txt);
-    groundSprite.SetSize({1.0f, 1.0f});
+    _doorSprite = new Sprite(&_container->_assetsCache->_door);
+
+    _groundSprite = new Sprite(&_container->_assetsCache->_ground_grass);
+    _groundSprite->SetSize({1.0f, 1.0f});
 
     auto camera = scene->CreateEntity();
     camera.AddComponent<TransformComponent>(glm::vec2(0, 0),
@@ -19,13 +18,13 @@ std::shared_ptr<Scene> TestScene::LoadScene()
     auto image = scene->CreateEntity();
     image.AddComponent<TransformComponent>(glm::vec2(0, 7),
                                            glm::vec2(1, 1), 10.0f);
-    image.AddComponent<SpriteComponent>(&sprite);
-    image.AddComponent<PhysicsComponent>(1.0f, 0.2f, 0.0f, Body::BodyType::Dynamic, glm::vec2(1.0f, 1.0f), 20.0f, glm::vec2(0, 5));
+    image.AddComponent<SpriteComponent>(_doorSprite);
+    image.AddComponent<PhysicsComponent>(1.0f, 0.2f, 0.0f, Body::BodyType::Dynamic, glm::vec2(0.8f, 1.0f), 20.0f, glm::vec2(0, 3));
 
     auto ground = scene->CreateEntity();
     ground.AddComponent<TransformComponent>(glm::vec2(0, -3),
                                            glm::vec2(10, 1), 10.0f);
-    ground.AddComponent<SpriteComponent>(&groundSprite);
+    ground.AddComponent<SpriteComponent>(_groundSprite);
     ground.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.0f, Body::BodyType::Static, glm::vec2(1.0f, 1.0f));
 
     scene->AddSystem<SpriteRenderSystem>();
@@ -33,4 +32,10 @@ std::shared_ptr<Scene> TestScene::LoadScene()
     scene->AddSystem<TestSystem>();
 
     return scene;
+}
+
+void TestScene::UnloadScene()
+{
+    delete _groundSprite;
+    delete _doorSprite;
 }

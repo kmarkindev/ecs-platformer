@@ -43,6 +43,7 @@ void Application::InitializeContainer(AppParams params)
                                                                    _container->_assetsManager);
     _container->_deltaTime = std::make_shared<DeltaTime>();
     _container->_sceneManager = std::make_shared<SceneManager>();
+    _container->_assetsCache = std::make_shared<AssetsCache>(_container->_assetsManager, _container->_textureLoader);
 }
 
 void Application::RegisterSceneFactories()

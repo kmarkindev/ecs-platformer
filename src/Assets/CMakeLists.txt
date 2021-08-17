@@ -11,4 +11,6 @@ target_sources(executable PUBLIC
     OpenGlShaderLoader.h
     GroupedAssetsParser.cpp
     GroupedAssetsParser.h
+	AssetsCache.cpp
+	AssetsCache.h
 )

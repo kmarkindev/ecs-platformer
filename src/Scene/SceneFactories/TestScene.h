@@ -14,7 +14,16 @@
 class TestScene : public ISceneFactory
 {
 public:
+
     std::shared_ptr<Scene> LoadScene() override;
+
+    void UnloadScene() override;
+
+private:
+
+    Sprite* _groundSprite = nullptr;
+    Sprite* _doorSprite = nullptr;
+
 };
 
 
