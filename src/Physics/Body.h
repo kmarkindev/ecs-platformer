@@ -37,6 +37,10 @@ public:
     [[nodiscard]] float GetAngle() const;
     void SetAngle(float angle);
     void UpdateParams(const BodyParams& params);
+    void SetVelocity(const glm::vec2& newVelocity);
+    [[nodiscard]] glm::vec2 GetVelocity() const;
+    void SetAngularVelocity(float newVelocity);
+    [[nodiscard]] float GetAngularVelocity() const;
     void DestroyBody();
 
 private:

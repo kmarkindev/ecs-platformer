@@ -111,3 +111,24 @@ Body::Body(b2World& world, b2Body* existingBody)
     _body = existingBody;
     _fixture = existingBody->GetFixtureList();
 }
+
+void Body::SetVelocity(const glm::vec2& newVelocity)
+{
+    _body->SetLinearVelocity({newVelocity.x, newVelocity.y});
+}
+
+glm::vec2 Body::GetVelocity() const
+{
+    auto vel = _body->GetLinearVelocity();
+    return {vel.x, vel.y};
+}
+
+void Body::SetAngularVelocity(float newVelocity)
+{
+    _body->SetAngularVelocity(newVelocity);
+}
+
+float Body::GetAngularVelocity() const
+{
+    return _body->GetAngularVelocity();
+}
