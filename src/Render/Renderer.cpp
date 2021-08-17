@@ -5,8 +5,10 @@ Renderer::Renderer(std::shared_ptr<Window> window)
 {
     gladLoadGL();
 
-    glClearColor(0, 0, 0, 0);
+    glClearColor(1, 1, 1, 0);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 #if DEBUG_BUILD
     glEnable(GL_DEBUG_OUTPUT);
