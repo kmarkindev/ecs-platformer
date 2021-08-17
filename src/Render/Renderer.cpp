@@ -6,7 +6,6 @@ Renderer::Renderer(std::shared_ptr<Window> window)
     gladLoadGL();
 
     glClearColor(1, 1, 1, 0);
-    glEnable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -33,7 +32,7 @@ void Renderer::StartRender()
     auto windowSize = _window->GetWindowSize();
     glViewport(0, 0, windowSize[0], windowSize[1]);
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Renderer::EndRender()

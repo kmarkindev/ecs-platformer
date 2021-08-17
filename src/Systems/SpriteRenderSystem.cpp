@@ -18,6 +18,15 @@ void SpriteRenderSystem::Update(Scene& scene)
 
     auto cameraProjectionMatrix = projectionMatrix * cameraMatrix;
 
+    std::sort(sprites.begin(), sprites.end(),
+        [](const auto& a, const auto& b)
+    {
+        auto aSpriteComp = a.template GetComponent<SpriteComponent>();
+        auto bSpriteComp = b.template GetComponent<SpriteComponent>();
+
+        return aSpriteComp.renderingLayer > bSpriteComp.renderingLayer;
+    });
+
     for(auto& sprite : sprites)
     {
         auto spriteObjPtr = sprite.GetComponent<SpriteComponent>().sprite;

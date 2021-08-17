@@ -5,4 +5,5 @@
 struct SpriteComponent
 {
     Sprite* sprite;
+    int renderingLayer = 0;
 };
