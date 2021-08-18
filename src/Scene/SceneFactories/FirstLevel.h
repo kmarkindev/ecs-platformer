@@ -8,6 +8,8 @@
 #include "Components/PhysicsComponent.h"
 #include "Systems/SpriteRenderSystem.h"
 #include "Systems/PhysicsSystem.h"
+#include "Systems/PlayerSystem.h"
+#include "Components/PlayerComponent.h"
 
 class FirstLevel : public ISceneFactory
 {

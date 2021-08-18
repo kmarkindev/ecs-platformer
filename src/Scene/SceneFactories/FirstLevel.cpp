@@ -22,12 +22,14 @@ void FirstLevel::SetupPlayer(const std::shared_ptr<AssetsCache>& cache)
     player.AddComponent<TransformComponent>();
     player.AddComponent<SpriteComponent>(&cache->_doorSprite);
     player.AddComponent<PhysicsComponent>();
+    player.AddComponent<PlayerComponent>();
 }
 
 void FirstLevel::SetupSystems()
 {
     _scene->AddSystem<SpriteRenderSystem>();
     _scene->AddSystem<PhysicsSystem>();
+    _scene->AddSystem<PlayerSystem>();
 }
 
 void FirstLevel::SetupGround(const std::shared_ptr<AssetsCache>& cache)
