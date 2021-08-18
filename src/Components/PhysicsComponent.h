@@ -11,4 +11,5 @@ struct PhysicsComponent
     glm::vec2 collisionBoxSize = {1.0f, 1.0f};
     float angularVelocity = 0.0f;
     glm::vec2 linearVelocity = {0.0f, 0.0f};
+    bool fixedRotation = false;
 };
