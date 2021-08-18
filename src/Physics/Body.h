@@ -28,6 +28,7 @@ public:
         glm::vec2 boxSize;
         float angularVelocity = 0.0f;
         glm::vec2 linearVelocity = {0.0f, 0.0f};
+        bool fixedRotation = false;
     };
 
 public:
@@ -43,6 +44,8 @@ public:
     [[nodiscard]] glm::vec2 GetVelocity() const;
     void SetAngularVelocity(float newVelocity);
     [[nodiscard]] float GetAngularVelocity() const;
+    void SetIsFixedRotation(bool isFixed);
+    [[nodiscard]] bool GetIsFixedRotation() const;
     void DestroyBody();
 
 private:

@@ -24,6 +24,7 @@ void Body::CreateBody(const Body::BodyParams& params)
     bodyDef.angle = glm::radians(params.angle);
     bodyDef.angularVelocity = params.angularVelocity;
     bodyDef.linearVelocity = {params.linearVelocity.x, params.linearVelocity.y};
+    bodyDef.fixedRotation = params.fixedRotation;
 
     _body = _world->CreateBody(&bodyDef);
 }
@@ -74,10 +75,11 @@ void Body::UpdateParams(const Body::BodyParams& params)
     _body->SetMassData(&massData);
 
     _body->SetType(ConvertBodyType(params.type));
+    _body->SetFixedRotation(params.fixedRotation);
+    _body->SetLinearVelocity({params.linearVelocity.x, params.linearVelocity.y});
+    _body->SetAngularVelocity(params.angularVelocity);
 
-    auto shape = CreateBoxShape(params);
-    auto fixtureDef = CreateFixtureDef(params, shape);
-    _fixture = _body->CreateFixture(&fixtureDef);
+    _fixture->SetFriction(params.friction);
 }
 
 b2MassData Body::CreateMassData(const Body::BodyParams& params)
@@ -139,4 +141,14 @@ void Body::SetAngularVelocity(float newVelocity)
 float Body::GetAngularVelocity() const
 {
     return _body->GetAngularVelocity();
+}
+
+void Body::SetIsFixedRotation(bool isFixed)
+{
+    _body->SetFixedRotation(isFixed);
+}
+
+bool Body::GetIsFixedRotation() const
+{
+    return _body->IsFixedRotation();
 }
