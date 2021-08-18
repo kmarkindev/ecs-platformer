@@ -11,11 +11,19 @@ public:
     AssetsCache(const std::shared_ptr<AssetsManager>& assetsManager,
                 const std::shared_ptr<OpenGlTextureLoader>& textureLoader);
 
-    Texture _ground;
-    Texture _ground_grass;
-    Texture _door;
-    Texture _grass;
-    Texture _spike;
+    /* Textures */
+    Texture _groundTexture;
+    Texture _groundGrassTexture;
+    Texture _doorTexture;
+    Texture _grassTexture;
+    Texture _spikeTexture;
+
+    /* Sprites */
+    Sprite _groundSprite;
+    Sprite _groundGrassSprite;
+    Sprite _doorSprite;
+    Sprite _grassSprite;
+    Sprite _spikeSprite;
 
 };
 
