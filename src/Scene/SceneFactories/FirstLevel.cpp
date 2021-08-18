@@ -21,8 +21,8 @@ void FirstLevel::SetupPlayer(const std::shared_ptr<AssetsCache>& cache)
     auto player = _scene->CreateEntity();
     player.AddComponent<TransformComponent>();
     player.AddComponent<SpriteComponent>(&cache->_doorSprite);
-    player.AddComponent<PhysicsComponent>();
-    player.AddComponent<PlayerComponent>();
+    player.AddComponent<PhysicsComponent>(1.0f, 0.2f, 3.5f, Body::BodyType::Dynamic, glm::vec2(1,1), 0.0f, glm::vec2(0,0), true);
+    player.AddComponent<PlayerComponent>(2.0f);
 }
 
 void FirstLevel::SetupSystems()
@@ -52,7 +52,7 @@ void FirstLevel::SetupGround(const std::shared_ptr<AssetsCache>& cache)
     }
 
     auto groundCollision = _scene->CreateEntity();
-    groundCollision.AddComponent<TransformComponent>(glm::vec2(0,-2), glm::vec2(30, 0.95));
+    groundCollision.AddComponent<TransformComponent>(glm::vec2(0,-2), glm::vec2(20, 0.95));
     groundCollision.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Static);
 
     auto leftWallCollision = _scene->CreateEntity();
