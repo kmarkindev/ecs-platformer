@@ -14,10 +14,14 @@ void PlayerSystem::Update(Scene& scene)
     auto inputManager = _container->_inputManager;
 
     float moveVelocity = 0.0f;
+    float jumpVelocity = physicsComp.linearVelocity.y;
     float moveSpeed = playerComp.moveSpeed;
 
-    if(std::abs(physicsComp.linearVelocity.y) > 0.1f)
-        moveSpeed *= 0.35f;
+    float fallVelocity = std::abs(physicsComp.linearVelocity.y);
+    bool isOnGround = fallVelocity < 0.05f;
+
+    if(!isOnGround)
+        moveSpeed *= 0.3f;
 
     if(inputManager->KeyPressed(KeyCode::A))
         moveVelocity -= moveSpeed;
@@ -25,9 +29,24 @@ void PlayerSystem::Update(Scene& scene)
     if(inputManager->KeyPressed(KeyCode::D))
         moveVelocity += moveSpeed;
 
-    player.PatchComponent<PhysicsComponent>([moveVelocity](auto& pComp)
+    if(inputManager->KeyPressed(KeyCode::SPACE)
+        && isOnGround)
+        jumpVelocity = playerComp.jumpForce;
+
+    player.PatchComponent<PhysicsComponent>([moveVelocity, jumpVelocity](auto& pComp)
     {
-        pComp.linearVelocity.x = moveVelocity;
+        if(moveVelocity > 0)
+        {
+            if(pComp.linearVelocity.x < moveVelocity)
+                pComp.linearVelocity.x = moveVelocity;
+        }
+        else if(moveVelocity < 0)
+        {
+            if(pComp.linearVelocity.x > moveVelocity)
+                pComp.linearVelocity.x = moveVelocity;
+        }
+
+        pComp.linearVelocity.y = jumpVelocity;
     });
 }
 
