@@ -11,6 +11,7 @@
 #include "Systems/PlayerSystem.h"
 #include "Systems/CameraSystem.h"
 #include "Components/PlayerComponent.h"
+#include "Components/DangerComponent.h"
 
 class FirstLevel : public ISceneFactory
 {
