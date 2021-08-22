@@ -57,11 +57,11 @@ void FirstLevel::SetupGround(const std::shared_ptr<AssetsCache>& cache)
 
     auto leftWallCollision = _scene->CreateEntity();
     leftWallCollision.AddComponent<TransformComponent>(glm::vec2(-10,3), glm::vec2(1, 30));
-    leftWallCollision.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Static);
+    leftWallCollision.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.0f, Body::BodyType::Static);
 
     auto rightWallCollision = _scene->CreateEntity();
     rightWallCollision.AddComponent<TransformComponent>(glm::vec2(10,3), glm::vec2(1, 30));
-    rightWallCollision.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Static);
+    rightWallCollision.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.0f, Body::BodyType::Static);
 }
 
 void FirstLevel::SetupCamera()

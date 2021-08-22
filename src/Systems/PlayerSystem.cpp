@@ -19,10 +19,10 @@ void PlayerSystem::Update(Scene& scene)
     if(std::abs(physicsComp.linearVelocity.y) > 0.1f)
         moveSpeed *= 0.35f;
 
-    if(inputManager->KeyPressed(KeyCode::KEY_A))
+    if(inputManager->KeyPressed(KeyCode::A))
         moveVelocity -= moveSpeed;
 
-    if(inputManager->KeyPressed(KeyCode::KEY_D))
+    if(inputManager->KeyPressed(KeyCode::D))
         moveVelocity += moveSpeed;
 
     player.PatchComponent<PhysicsComponent>([moveVelocity](auto& pComp)
