@@ -42,3 +42,10 @@ void SceneManager::ResetSceneChanged()
 {
     _sceneChanged = false;
 }
+
+void SceneManager::ReloadActiveScene()
+{
+    int activeSceneId = GetActiveScene().first;
+
+    LoadScene(activeSceneId);
+}
