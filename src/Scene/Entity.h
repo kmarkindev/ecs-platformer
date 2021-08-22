@@ -10,7 +10,7 @@ public:
     Entity(entt::entity entity, entt::registry* registry);
 
     template<typename T, typename... Args>
-    T AddComponent(Args&& ... args)
+    decltype(auto) AddComponent(Args&& ... args)
     {
         return _registry->emplace<T>(_entity, std::forward<Args>(args)...);
     }
