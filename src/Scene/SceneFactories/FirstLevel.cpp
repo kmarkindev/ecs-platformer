@@ -19,10 +19,10 @@ std::shared_ptr<Scene> FirstLevel::LoadScene()
 void FirstLevel::SetupPlayer(const std::shared_ptr<AssetsCache>& cache)
 {
     auto player = _scene->CreateEntity();
-    player.AddComponent<TransformComponent>();
+    player.AddComponent<TransformComponent>(glm::vec2(0, 7));
     player.AddComponent<SpriteComponent>(&cache->_doorSprite);
-    player.AddComponent<PhysicsComponent>(1.0f, 0.2f, 3.5f, Body::BodyType::Dynamic, glm::vec2(1,1), 0.0f, glm::vec2(0,0), true);
-    player.AddComponent<PlayerComponent>(2.0f);
+    player.AddComponent<PhysicsComponent>(1.0f, 0.2f, 99.0f, Body::BodyType::Dynamic, glm::vec2(1,1), 0.0f, glm::vec2(0,0), true);
+    player.AddComponent<PlayerComponent>();
 }
 
 void FirstLevel::SetupSystems()
@@ -68,7 +68,7 @@ void FirstLevel::SetupCamera()
 {
     auto camera = _scene->CreateEntity();
     camera.AddComponent<TransformComponent>();
-    camera.AddComponent<CameraComponent>(10.0f);
+    camera.AddComponent<CameraComponent>(25.0f);
 }
 
 void FirstLevel::UnloadScene()

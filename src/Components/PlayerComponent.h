@@ -2,5 +2,5 @@
 
 struct PlayerComponent
 {
-    float moveSpeed = 1.0f;
+    float moveSpeed = 5.0f;
 };

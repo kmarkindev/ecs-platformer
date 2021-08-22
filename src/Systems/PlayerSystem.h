@@ -4,6 +4,7 @@
 #include "Components/PhysicsComponent.h"
 #include "Container/DependencyContainer.h"
 #include "Components/PlayerComponent.h"
+#include "Components/TransformComponent.h"
 
 class PlayerSystem : public ISystem
 {
@@ -19,5 +20,3 @@ private:
     DependencyContainer* _container;
 
 };
-
-
