@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Scene/Scene.h"
+#include "Scene/Events/CollisionEnter.h"
 #include "Components/PhysicsComponent.h"
+#include "Components/DangerComponent.h"
 #include "Container/DependencyContainer.h"
 #include "Components/PlayerComponent.h"
 #include "Components/TransformComponent.h"

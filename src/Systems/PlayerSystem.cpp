@@ -2,7 +2,21 @@
 
 void PlayerSystem::Init(Scene& scene)
 {
+    scene.GetEventListener().Subscribe<CollisionEnter>([](CollisionEnter& event)
+    {
+        //TODO: get entities using physics bodies from event
+        auto entA = nullptr;
+        auto entB = nullptr;
 
+        bool playerDied = entA.HasAnyOfComponents<PlayerComponent, DangerComponent>();
+        playerDied = playerDied
+                && entB.HasAnyOfComponents<PlayerComponent, DangerComponent>();
+
+        //it doesn't work if there are colliding entities with DangerComponent
+        //but there are no such entities :)
+        if(playerDied)
+            DependencyContainer::GetInstance()->_sceneManager->ReloadActiveScene();
+    });
 }
 
 void PlayerSystem::Update(Scene& scene)
