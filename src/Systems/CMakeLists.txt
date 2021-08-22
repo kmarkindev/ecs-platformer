@@ -5,4 +5,6 @@ target_sources(executable PUBLIC
 	PhysicsSystem.h
 	PlayerSystem.h
 	PlayerSystem.cpp
+	CameraSystem.cpp
+	CameraSystem.h
 )

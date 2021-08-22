@@ -21,7 +21,7 @@ void PlayerSystem::Update(Scene& scene)
     bool isOnGround = fallVelocity < 0.05f;
 
     if(!isOnGround)
-        moveSpeed *= 0.3f;
+        moveSpeed *= 0.4f;
 
     if(inputManager->KeyPressed(KeyCode::A))
         moveVelocity -= moveSpeed;
