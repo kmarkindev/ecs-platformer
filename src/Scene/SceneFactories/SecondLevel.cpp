@@ -1,6 +1,6 @@
-#include "FirstLevel.h"
+#include "SecondLevel.h"
 
-std::shared_ptr<Scene> FirstLevel::LoadScene()
+std::shared_ptr<Scene> SecondLevel::LoadScene()
 {
     auto cache = DependencyContainer::GetInstance()->_assetsCache;
     _scene = std::make_shared<Scene>();
@@ -16,7 +16,7 @@ std::shared_ptr<Scene> FirstLevel::LoadScene()
     return _scene;
 }
 
-void FirstLevel::SetupPlayer(const std::shared_ptr<AssetsCache>& cache)
+void SecondLevel::SetupPlayer(const std::shared_ptr<AssetsCache>& cache)
 {
     auto player = _scene->CreateEntity();
     player.AddComponent<TransformComponent>(glm::vec2(-8, -1.0f));
@@ -25,7 +25,7 @@ void FirstLevel::SetupPlayer(const std::shared_ptr<AssetsCache>& cache)
     player.AddComponent<PlayerComponent>();
 }
 
-void FirstLevel::SetupSystems()
+void SecondLevel::SetupSystems()
 {
     _scene->AddSystem<SpriteRenderSystem>();
     _scene->AddSystem<PhysicsSystem>();
@@ -33,7 +33,7 @@ void FirstLevel::SetupSystems()
     _scene->AddSystem<CameraSystem>();
 }
 
-void FirstLevel::SetupGround(const std::shared_ptr<AssetsCache>& cache)
+void SecondLevel::SetupGround(const std::shared_ptr<AssetsCache>& cache)
 {
     for(int x = -10; x <= 10; ++x)
     {
@@ -63,6 +63,7 @@ void FirstLevel::SetupGround(const std::shared_ptr<AssetsCache>& cache)
     groundCollision.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Static);
 
     auto leftWallCollision = _scene->CreateEntity();
+    leftWallCollision.AddComponent<SpriteComponent>(&cache->_doorSprite);
     leftWallCollision.AddComponent<TransformComponent>(glm::vec2(-10,3), glm::vec2(1, 30));
     leftWallCollision.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.0f, Body::BodyType::Static);
 
@@ -71,20 +72,20 @@ void FirstLevel::SetupGround(const std::shared_ptr<AssetsCache>& cache)
     rightWallCollision.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.0f, Body::BodyType::Static);
 
     auto exitDoor = _scene->CreateEntity();
-    exitDoor.AddComponent<TransformComponent>(glm::vec2(8,-1));
-    exitDoor.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.0f, Body::BodyType::Static, glm::vec2(0.7f, 1.0f));
+    exitDoor.AddComponent<TransformComponent>(glm::vec2(8,-1), glm::vec2(0.8f, 1));
+    exitDoor.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.0f, Body::BodyType::Static);
     exitDoor.AddComponent<SpriteComponent>(&cache->_doorSprite);
     exitDoor.AddComponent<DoorComponent>();
 }
 
-void FirstLevel::SetupCamera()
+void SecondLevel::SetupCamera()
 {
     auto camera = _scene->CreateEntity();
     camera.AddComponent<TransformComponent>(glm::vec2(-8, 0));
     camera.AddComponent<CameraComponent>(10.0f);
 }
 
-void FirstLevel::UnloadScene()
+void SecondLevel::UnloadScene()
 {
     _scene.reset();
 }

@@ -14,7 +14,7 @@
 #include "Components/DangerComponent.h"
 #include "Components/DoorComponent.h"
 
-class FirstLevel : public ISceneFactory
+class SecondLevel : public ISceneFactory
 {
 public:
 
