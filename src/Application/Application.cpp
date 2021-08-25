@@ -20,9 +20,10 @@ bool Application::Update()
     scene.second->UpdateSystems();
     _container->_renderer->EndRender();
 
-    _container->_sceneManager->ResetSceneChanged();
+    if(!_container->_sceneManager->SceneChanged())
+        _container->_window->SwapBuffers();
 
-    _container->_window->SwapBuffers();
+    _container->_sceneManager->ResetSceneChanged();
 
     _container->_deltaTime->UpdateDeltaTime();
 
