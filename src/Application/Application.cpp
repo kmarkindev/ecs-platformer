@@ -20,9 +20,10 @@ bool Application::Update()
     scene.second->UpdateSystems();
     _container->_renderer->EndRender();
 
-    _container->_sceneManager->ResetSceneChanged();
+    if(!_container->_sceneManager->SceneChanged())
+        _container->_window->SwapBuffers();
 
-    _container->_window->SwapBuffers();
+    _container->_sceneManager->ResetSceneChanged();
 
     _container->_deltaTime->UpdateDeltaTime();
 
@@ -52,7 +53,8 @@ void Application::RegisterSceneFactories()
 {
     auto manager = _container->_sceneManager;
 
-    manager->RegisterSceneFactory(std::make_shared<TestScene>(), 0);
+    manager->RegisterSceneFactory(std::make_shared<FirstLevel>(), 0);
+    manager->RegisterSceneFactory(std::make_shared<SecondLevel>(), 1);
 
     manager->LoadScene(0);
 }

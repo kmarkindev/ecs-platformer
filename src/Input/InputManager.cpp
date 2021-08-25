@@ -26,15 +26,15 @@ int InputManager::KeyCodeToGlfwKeyCode(KeyCode code)
 {
     switch(code) //bruh
     {
-        case KeyCode::KEY_W:
+        case KeyCode::W:
             return GLFW_KEY_W;
-        case KeyCode::KEY_A:
+        case KeyCode::A:
             return GLFW_KEY_A;
-        case KeyCode::KEY_S:
+        case KeyCode::S:
             return GLFW_KEY_S;
-        case KeyCode::KEY_D:
+        case KeyCode::D:
             return GLFW_KEY_D;
-        case KeyCode::KEY_SPACE:
+        case KeyCode::SPACE:
             return GLFW_KEY_SPACE;
     }
 

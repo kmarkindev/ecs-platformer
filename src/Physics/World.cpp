@@ -7,9 +7,9 @@ World::World(glm::vec2 gravity)
     _world.SetContactListener(&_collisionListener);
 }
 
-Body World::CreateBody(const Body::BodyParams& params)
+Body World::CreateBody(const Body::BodyParams& params, const Entity& entity)
 {
-    return Body(_world, params);
+    return Body(_world, params, entity);
 }
 
 void World::Update(float timestamp)

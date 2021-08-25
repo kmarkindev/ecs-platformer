@@ -2,5 +2,5 @@
 
 struct CameraComponent
 {
-    float zoom;
+    float zoom = 5.0f;
 };

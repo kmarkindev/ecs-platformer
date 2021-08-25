@@ -9,7 +9,7 @@ bool SceneManager::HasRegisteredSceneFactory(int sceneId)
 {
     auto factory = _factories.find(sceneId);
 
-    return factory == _factories.end();
+    return factory != _factories.end();
 }
 
 void SceneManager::LoadScene(int sceneId)
@@ -41,4 +41,11 @@ bool SceneManager::SceneChanged() const
 void SceneManager::ResetSceneChanged()
 {
     _sceneChanged = false;
+}
+
+void SceneManager::ReloadActiveScene()
+{
+    int activeSceneId = GetActiveScene().first;
+
+    LoadScene(activeSceneId);
 }

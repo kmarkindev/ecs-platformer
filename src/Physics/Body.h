@@ -6,6 +6,7 @@
 #include <box2d/b2_fixture.h>
 #include <box2d/b2_polygon_shape.h>
 #include <glm/glm.hpp>
+#include <Scene/Entity.h>
 
 class Body
 {
@@ -28,10 +29,11 @@ public:
         glm::vec2 boxSize;
         float angularVelocity = 0.0f;
         glm::vec2 linearVelocity = {0.0f, 0.0f};
+        bool fixedRotation = false;
     };
 
 public:
-    explicit Body(b2World& world, const BodyParams& params);
+    explicit Body(b2World& world, const BodyParams& params, const Entity& entity);
     explicit Body(b2World& world, b2Body* existingBody);
 
     [[nodiscard]] glm::vec2 GetPosition() const;
@@ -43,6 +45,10 @@ public:
     [[nodiscard]] glm::vec2 GetVelocity() const;
     void SetAngularVelocity(float newVelocity);
     [[nodiscard]] float GetAngularVelocity() const;
+    void SetIsFixedRotation(bool isFixed);
+    [[nodiscard]] bool GetIsFixedRotation() const;
+    void SetEntity(const Entity& entity);
+    [[nodiscard]] Entity GetEntity() const;
     void DestroyBody();
 
 private:

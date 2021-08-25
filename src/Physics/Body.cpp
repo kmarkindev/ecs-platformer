@@ -1,6 +1,6 @@
 #include "Body.h"
 
-Body::Body(b2World& world, const BodyParams& params)
+Body::Body(b2World& world, const BodyParams& params, const Entity& entity)
 {
     _world = &world;
 
@@ -14,6 +14,16 @@ Body::Body(b2World& world, const BodyParams& params)
 
     auto massData = CreateMassData(params);
     _body->SetMassData(&massData);
+
+    SetEntity(entity);
+}
+
+Body::Body(b2World& world, b2Body* existingBody)
+{
+    _world = &world;
+
+    _body = existingBody;
+    _fixture = existingBody->GetFixtureList();
 }
 
 void Body::CreateBody(const Body::BodyParams& params)
@@ -24,6 +34,7 @@ void Body::CreateBody(const Body::BodyParams& params)
     bodyDef.angle = glm::radians(params.angle);
     bodyDef.angularVelocity = params.angularVelocity;
     bodyDef.linearVelocity = {params.linearVelocity.x, params.linearVelocity.y};
+    bodyDef.fixedRotation = params.fixedRotation;
 
     _body = _world->CreateBody(&bodyDef);
 }
@@ -74,10 +85,11 @@ void Body::UpdateParams(const Body::BodyParams& params)
     _body->SetMassData(&massData);
 
     _body->SetType(ConvertBodyType(params.type));
+    _body->SetFixedRotation(params.fixedRotation);
+    _body->SetLinearVelocity({params.linearVelocity.x, params.linearVelocity.y});
+    _body->SetAngularVelocity(params.angularVelocity);
 
-    auto shape = CreateBoxShape(params);
-    auto fixtureDef = CreateFixtureDef(params, shape);
-    _fixture = _body->CreateFixture(&fixtureDef);
+    _fixture->SetFriction(params.friction);
 }
 
 b2MassData Body::CreateMassData(const Body::BodyParams& params)
@@ -107,17 +119,11 @@ b2PolygonShape Body::CreateBoxShape(const Body::BodyParams& params)
 
 void Body::DestroyBody()
 {
+    delete reinterpret_cast<Entity*>(_body->GetUserData().pointer);
+
     _world->DestroyBody(_body);
     _body = nullptr;
     _fixture = nullptr;
-}
-
-Body::Body(b2World& world, b2Body* existingBody)
-{
-    _world = &world;
-
-    _body = existingBody;
-    _fixture = existingBody->GetFixtureList();
 }
 
 void Body::SetVelocity(const glm::vec2& newVelocity)
@@ -139,4 +145,25 @@ void Body::SetAngularVelocity(float newVelocity)
 float Body::GetAngularVelocity() const
 {
     return _body->GetAngularVelocity();
+}
+
+void Body::SetIsFixedRotation(bool isFixed)
+{
+    _body->SetFixedRotation(isFixed);
+}
+
+bool Body::GetIsFixedRotation() const
+{
+    return _body->IsFixedRotation();
+}
+
+void Body::SetEntity(const Entity& entity)
+{
+    auto* ent = new Entity(entity);
+    _body->GetUserData().pointer = reinterpret_cast<uintptr_t>(ent);
+}
+
+Entity Body::GetEntity() const
+{
+    return Entity(*reinterpret_cast<Entity*>(_body->GetUserData().pointer));
 }

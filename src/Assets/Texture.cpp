@@ -57,7 +57,7 @@ void Texture::Bind(int textureBlockId)
 void Texture::Unbind()
 {
     glActiveTexture(GL_TEXTURE0 + _bindedBlockId);
-    glBindTexture(GL_TEXTURE_2D, _textureId);
+    glBindTexture(GL_TEXTURE_2D, 0);
     _bindedBlockId = -1;
 }
 
