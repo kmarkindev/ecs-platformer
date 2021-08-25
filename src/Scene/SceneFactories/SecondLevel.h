@@ -13,6 +13,7 @@
 #include "Components/PlayerComponent.h"
 #include "Components/DangerComponent.h"
 #include "Components/DoorComponent.h"
+#include "Systems/PathMovingSystem.h"
 
 class SecondLevel : public ISceneFactory
 {
