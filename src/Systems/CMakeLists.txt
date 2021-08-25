@@ -7,4 +7,6 @@ target_sources(executable PUBLIC
 	PlayerSystem.cpp
 	CameraSystem.cpp
 	CameraSystem.h
+	PathMovingSystem.cpp
+	PathMovingSystem.h
 )
