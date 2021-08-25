@@ -7,12 +7,14 @@ AssetsCache::AssetsCache(const std::shared_ptr<AssetsManager>& assetsManager,
       _doorTexture(textureLoader->LoadTexture(assetsManager->GetAssetData("textures/door.png"))),
       _grassTexture(textureLoader->LoadTexture(assetsManager->GetAssetData("textures/grass.png"))),
       _spikeTexture(textureLoader->LoadTexture(assetsManager->GetAssetData("textures/spike.png"))),
+      _playerTexture(textureLoader->LoadTexture(assetsManager->GetAssetData("textures/player.png"))),
 
       _groundSprite(&_groundTexture),
       _groundGrassSprite(&_groundGrassTexture),
       _doorSprite(&_doorTexture),
       _grassSprite(&_grassTexture),
-      _spikeSprite(&_spikeTexture)
+      _spikeSprite(&_spikeTexture),
+      _playerSprite(&_playerTexture)
 {
 
 }

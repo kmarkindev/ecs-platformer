@@ -17,6 +17,7 @@ public:
     Texture _doorTexture;
     Texture _grassTexture;
     Texture _spikeTexture;
+    Texture _playerTexture;
 
     /* Sprites */
     Sprite _groundSprite;
@@ -24,6 +25,7 @@ public:
     Sprite _doorSprite;
     Sprite _grassSprite;
     Sprite _spikeSprite;
+    Sprite _playerSprite;
 
 };
 
