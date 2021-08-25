@@ -33,7 +33,7 @@ class World
 public:
     explicit World(glm::vec2 gravity);
 
-    Body CreateBody(const Body::BodyParams& params);
+    Body CreateBody(const Body::BodyParams& params, const Entity& entity);
 
     void OnCollisionEnter(const CollisionCallback& callback);
     void OnCollisionExit(const CollisionCallback& callback);

@@ -90,7 +90,7 @@ void PhysicsSystem::InitializeNewEntities(Scene& scene)
             .fixedRotation = pComp.fixedRotation
         };
 
-        auto body = _world.CreateBody(params);
+        auto body = _world.CreateBody(params, entity);
         _bodies.push_front(body);
 
         entity.AddComponent<PhysicsBodyComponent>(&_bodies.front());

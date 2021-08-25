@@ -1,6 +1,6 @@
 #include "Body.h"
 
-Body::Body(b2World& world, const BodyParams& params)
+Body::Body(b2World& world, const BodyParams& params, const Entity& entity)
 {
     _world = &world;
 
@@ -14,6 +14,16 @@ Body::Body(b2World& world, const BodyParams& params)
 
     auto massData = CreateMassData(params);
     _body->SetMassData(&massData);
+
+    SetEntity(entity);
+}
+
+Body::Body(b2World& world, b2Body* existingBody)
+{
+    _world = &world;
+
+    _body = existingBody;
+    _fixture = existingBody->GetFixtureList();
 }
 
 void Body::CreateBody(const Body::BodyParams& params)
@@ -109,17 +119,11 @@ b2PolygonShape Body::CreateBoxShape(const Body::BodyParams& params)
 
 void Body::DestroyBody()
 {
+    delete reinterpret_cast<Entity*>(_body->GetUserData().pointer);
+
     _world->DestroyBody(_body);
     _body = nullptr;
     _fixture = nullptr;
-}
-
-Body::Body(b2World& world, b2Body* existingBody)
-{
-    _world = &world;
-
-    _body = existingBody;
-    _fixture = existingBody->GetFixtureList();
 }
 
 void Body::SetVelocity(const glm::vec2& newVelocity)
@@ -151,4 +155,15 @@ void Body::SetIsFixedRotation(bool isFixed)
 bool Body::GetIsFixedRotation() const
 {
     return _body->IsFixedRotation();
+}
+
+void Body::SetEntity(const Entity& entity)
+{
+    auto* ent = new Entity(entity);
+    _body->GetUserData().pointer = reinterpret_cast<uintptr_t>(ent);
+}
+
+Entity Body::GetEntity() const
+{
+    return Entity(*reinterpret_cast<Entity*>(_body->GetUserData().pointer));
 }

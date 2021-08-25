@@ -4,9 +4,8 @@ void PlayerSystem::Init(Scene& scene)
 {
     scene.GetEventListener().Subscribe<CollisionEnter>([](CollisionEnter& event)
     {
-        //TODO: get entities using physics bodies from event
-        auto entA = nullptr;
-        auto entB = nullptr;
+        auto entA = event.GetA().GetEntity();
+        auto entB = event.GetB().GetEntity();
 
         bool playerDied = entA.HasAnyOfComponents<PlayerComponent, DangerComponent>();
         playerDied = playerDied
