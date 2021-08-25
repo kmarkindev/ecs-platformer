@@ -55,7 +55,7 @@ void FirstLevel::SetupGround(const std::shared_ptr<AssetsCache>& cache)
     auto spike = _scene->CreateEntity();
     spike.AddComponent<DangerComponent>();
     spike.AddComponent<TransformComponent>(glm::vec2(3, -1.2f), glm::vec2(0.8f, 0.8f));
-    spike.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Static);
+    spike.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Static, glm::vec2(0.8f, 0.8f));
     spike.AddComponent<SpriteComponent>(&cache->_spikeSprite);
 
     auto groundCollision = _scene->CreateEntity();

@@ -56,21 +56,21 @@ void SecondLevel::SetupGround(const std::shared_ptr<AssetsCache>& cache)
     auto spike = _scene->CreateEntity();
     spike.AddComponent<DangerComponent>();
     spike.AddComponent<TransformComponent>(glm::vec2(3, -1.2f), glm::vec2(0.8f, 0.8f));
-    spike.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Static);
+    spike.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Static, glm::vec2(0.8f, 0.8f));
     spike.AddComponent<SpriteComponent>(&cache->_spikeSprite);
 
     auto movingSpike = _scene->CreateEntity();
     movingSpike.AddComponent<DangerComponent>();
     movingSpike.AddComponent<PathComponent>(glm::vec2(-8, 1), glm::vec2(-5, 0.5f));
     movingSpike.AddComponent<TransformComponent>(glm::vec2(0, 0), glm::vec2(0.8f, 0.8f));
-    movingSpike.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Kinematic);
+    movingSpike.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Kinematic, glm::vec2(0.8f, 0.8f));
     movingSpike.AddComponent<SpriteComponent>(&cache->_spikeSprite);
 
     auto movingSpike2 = _scene->CreateEntity();
     movingSpike2.AddComponent<DangerComponent>();
     movingSpike2.AddComponent<PathComponent>(glm::vec2(-1, 5), glm::vec2(1, -0.5f));
     movingSpike2.AddComponent<TransformComponent>(glm::vec2(0, 0), glm::vec2(0.8f, 0.8f));
-    movingSpike2.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Kinematic);
+    movingSpike2.AddComponent<PhysicsComponent>(1.0f, 1.0f, 0.2f, Body::BodyType::Kinematic, glm::vec2(0.8f, 0.8f));
     movingSpike2.AddComponent<SpriteComponent>(&cache->_spikeSprite);
 
     auto groundCollision = _scene->CreateEntity();
