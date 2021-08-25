@@ -17,6 +17,8 @@ public:
 
     void LoadScene(int sceneId);
 
+    void ReloadActiveScene();
+
     std::pair<int, std::shared_ptr<Scene>> GetActiveScene();
 
     [[nodiscard]] bool SceneChanged() const;

@@ -87,9 +87,10 @@ void PhysicsSystem::InitializeNewEntities(Scene& scene)
             .boxSize = pComp.collisionBoxSize * tComp.scale,
             .angularVelocity = pComp.angularVelocity,
             .linearVelocity = pComp.linearVelocity,
+            .fixedRotation = pComp.fixedRotation
         };
 
-        auto body = _world.CreateBody(params);
+        auto body = _world.CreateBody(params, entity);
         _bodies.push_front(body);
 
         entity.AddComponent<PhysicsBodyComponent>(&_bodies.front());
@@ -117,7 +118,8 @@ void PhysicsSystem::UpdateParams(Entity& ent)
         .type = pComp.bodyType,
         .boxSize = pComp.collisionBoxSize * tComp.scale,
         .angularVelocity = pComp.angularVelocity,
-        .linearVelocity = pComp.linearVelocity
+        .linearVelocity = pComp.linearVelocity,
+        .fixedRotation = pComp.fixedRotation
     };
 
     pbComp.body->UpdateParams(params);
@@ -132,6 +134,12 @@ void PhysicsSystem::UpdateTransforms(std::vector<Entity>& entities)
         ent.PatchComponent<TransformComponent>([&pbComp](auto& tComp){
             tComp.position = pbComp.body->GetPosition();
             tComp.angle = pbComp.body->GetAngle();
+        });
+
+        ent.PatchComponent<PhysicsComponent>([&pbComp](auto& pComp)
+        {
+            pComp.linearVelocity = pbComp.body->GetVelocity();
+            pComp.angularVelocity = pbComp.body->GetAngularVelocity();
         });
     }
 }

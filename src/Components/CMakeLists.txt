@@ -4,4 +4,7 @@ target_sources(executable PUBLIC
 	CameraComponent.h
 	PhysicsBodyComponent.h
 	PhysicsComponent.h
+	DangerComponent.h
+	DoorComponent.h
+	PathComponent.h
 )

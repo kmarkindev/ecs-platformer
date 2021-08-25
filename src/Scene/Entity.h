@@ -8,9 +8,10 @@ class Entity
 {
 public:
     Entity(entt::entity entity, entt::registry* registry);
+    Entity(const Entity& entity) = default;
 
     template<typename T, typename... Args>
-    T AddComponent(Args&& ... args)
+    decltype(auto) AddComponent(Args&& ... args)
     {
         return _registry->emplace<T>(_entity, std::forward<Args>(args)...);
     }

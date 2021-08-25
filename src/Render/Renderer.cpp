@@ -5,7 +5,7 @@ Renderer::Renderer(std::shared_ptr<Window> window)
 {
     gladLoadGL();
 
-    glClearColor(1, 1, 1, 0);
+    glClearColor(178.0f / 255.0f, 1, 1, 1);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 

@@ -3,6 +3,10 @@ target_sources(executable PUBLIC
 	SpriteRenderSystem.h
 	PhysicsSystem.cpp
 	PhysicsSystem.h
-	TestSystem.cpp
-	TestSystem.h
+	PlayerSystem.h
+	PlayerSystem.cpp
+	CameraSystem.cpp
+	CameraSystem.h
+	PathMovingSystem.cpp
+	PathMovingSystem.h
 )
