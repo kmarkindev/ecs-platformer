@@ -6,4 +6,5 @@ target_sources(executable PUBLIC
 	PhysicsComponent.h
 	DangerComponent.h
 	DoorComponent.h
+	PathComponent.h
 )
