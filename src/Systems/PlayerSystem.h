@@ -7,6 +7,7 @@
 #include "Container/DependencyContainer.h"
 #include "Components/PlayerComponent.h"
 #include "Components/TransformComponent.h"
+#include "Components/DoorComponent.h"
 
 class PlayerSystem : public ISystem
 {
@@ -18,7 +19,6 @@ public:
     void Update(Scene& scene) override;
 
 private:
-
     DependencyContainer* _container;
 
 };

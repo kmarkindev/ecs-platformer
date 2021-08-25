@@ -16,6 +16,27 @@ void PlayerSystem::Init(Scene& scene)
         if(playerDied)
             DependencyContainer::GetInstance()->_sceneManager->ReloadActiveScene();
     });
+
+    scene.GetEventListener().Subscribe<CollisionEnter>([](CollisionEnter& event)
+    {
+        auto entA = event.GetA().GetEntity();
+        auto entB = event.GetB().GetEntity();
+
+        bool playerEscaped = entA.HasAnyOfComponents<PlayerComponent, DoorComponent>();
+        playerEscaped = playerEscaped
+                        && entB.HasAnyOfComponents<PlayerComponent, DoorComponent>();
+
+        if(playerEscaped)
+        {
+            auto container = DependencyContainer::GetInstance();
+            auto levelId = container->_sceneManager->GetActiveScene().first + 1;
+
+            if(container->_sceneManager->HasRegisteredSceneFactory(levelId))
+                container->_sceneManager->LoadScene(levelId);
+            else
+                container->_sceneManager->LoadScene(0);
+        }
+    });
 }
 
 void PlayerSystem::Update(Scene& scene)
