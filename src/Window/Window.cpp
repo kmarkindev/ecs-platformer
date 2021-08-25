@@ -17,8 +17,6 @@ Window::Window(const std::string& title, int width, int height, bool fullScreen)
     _window = glfwCreateWindow(width, height, charTitle, fullScreen ? glfwGetPrimaryMonitor() : nullptr, nullptr);
 
     glfwMakeContextCurrent(_window);
-
-    glfwSwapInterval(0);
 }
 
 Window::~Window()

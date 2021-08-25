@@ -54,6 +54,7 @@ void Application::RegisterSceneFactories()
     auto manager = _container->_sceneManager;
 
     manager->RegisterSceneFactory(std::make_shared<FirstLevel>(), 0);
+    manager->RegisterSceneFactory(std::make_shared<SecondLevel>(), 1);
 
     manager->LoadScene(0);
 }
